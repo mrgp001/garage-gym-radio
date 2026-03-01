@@ -1788,13 +1788,13 @@ const DAYS = ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','
 const JS_TO_IDX = [6,0,1,2,3,4,5]; // getDay() 0=Dom→6, 1=Lun→0 ...
 
 let weekSchedule = [
-  {open:true,  start:'09:00', stop:'22:00'}, // Lun
-  {open:true,  start:'09:00', stop:'22:00'}, // Mar
-  {open:true,  start:'09:00', stop:'22:00'}, // Mer
-  {open:true,  start:'09:00', stop:'22:00'}, // Gio
-  {open:true,  start:'09:00', stop:'22:00'}, // Ven
-  {open:true,  start:'08:00', stop:'23:00'}, // Sab
-  {open:false, start:'10:00', stop:'20:00'}, // Dom
+  {open:true,  start:'06:00', stop:'23:59'}, // Lun
+  {open:true,  start:'06:00', stop:'23:59'}, // Mar
+  {open:true,  start:'06:00', stop:'23:59'}, // Mer
+  {open:true,  start:'06:00', stop:'23:59'}, // Gio
+  {open:true,  start:'06:00', stop:'19:59'}, // Ven
+  {open:true,  start:'06:00', stop:'19:59'}, // Sab
+  {open:false, start:'06:00', stop:'23:59'}, // Dom
 ];
 
 function todayIdx() { return JS_TO_IDX[new Date().getDay()]; }
@@ -1915,14 +1915,48 @@ function updateNextEvent() {
   if (!scheduleActive) return;
   const now = new Date();
   const hhmm = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
-  const day = weekSchedule[todayIdx()];
-  let txt;
-  if (!day.open)           txt = 'Oggi chiuso';
-  else if (hhmm < day.start) txt = `▶ Avvio oggi alle ${day.start}`;
-  else if (hhmm < day.stop)  txt = `⏹ Stop oggi alle ${day.stop}`;
-  else                       txt = '✓ Oggi completato';
-  document.getElementById('next-event-bar').style.display = 'block';
-  document.getElementById('next-event-text').textContent = txt;
+  const todayI = todayIdx();
+  const todayDay = weekSchedule[todayI];
+
+  // Build a rich status message
+  let completedTxt = '';
+  let nextTxt = '';
+
+  if (!todayDay.open) {
+    completedTxt = `${DAYS[todayI]} — chiuso`;
+  } else if (hhmm >= todayDay.stop) {
+    completedTxt = `${DAYS[todayI]} completato — musica attiva dalle ${todayDay.start} alle ${todayDay.stop}`;
+  } else if (hhmm >= todayDay.start) {
+    completedTxt = `▶ Musica attiva — avviata alle ${todayDay.start}, stop alle ${todayDay.stop}`;
+  } else {
+    completedTxt = `${DAYS[todayI]} — avvio programmato alle ${todayDay.start}`;
+  }
+
+  // Find next scheduled event (could be later today or a future day)
+  // Check stop today first
+  if (todayDay.open && hhmm >= todayDay.start && hhmm < todayDay.stop) {
+    nextTxt = `⏭ Prossimo: stop alle ${todayDay.stop} (oggi)`;
+  } else {
+    // Search forward through the week for the next open day
+    for (let offset = (hhmm < (todayDay.open ? todayDay.start : '99:99') ? 0 : 1); offset <= 7; offset++) {
+      const idx = (todayI + offset) % 7;
+      const d = weekSchedule[idx];
+      if (d.open) {
+        const label = offset === 0 ? 'oggi' : offset === 1 ? 'domani' : DAYS[idx];
+        nextTxt = `⏭ Prossimo avvio: ${DAYS[idx]} alle ${d.start} (${label})`;
+        break;
+      }
+    }
+    if (!nextTxt) nextTxt = 'Nessun giorno programmato';
+  }
+
+  const bar = document.getElementById('next-event-bar');
+  bar.style.display = 'block';
+  bar.innerHTML = `
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;color:var(--text);line-height:1.7;">
+      <div style="color:var(--green);font-weight:700;">${completedTxt}</div>
+      <div style="color:var(--muted);font-size:0.78rem;">${nextTxt}</div>
+    </div>`;
 }
 
 function ensureTicker() {
