@@ -2312,6 +2312,7 @@ function addAnnFile() {
   document.getElementById('ann-day').value = 'every';
   announcements.sort((a, b) => a.time.localeCompare(b.time));
   renderAnnouncements();
+  saveAnnouncements();
   ensureTicker();
 }
 
@@ -2344,12 +2345,14 @@ function addAnn() {
 
   announcements.sort((a, b) => a.time.localeCompare(b.time));
   renderAnnouncements();
+  saveAnnouncements();
   ensureTicker();
 }
 
 function removeAnn(id) {
   announcements = announcements.filter(a => a.id !== id);
   renderAnnouncements();
+  saveAnnouncements();
   log('Annuncio rimosso', 'warn');
 }
 
@@ -2468,6 +2471,32 @@ function testAnn(id) { toggleTestAnn(id, document.getElementById('test-btn-' + i
 
 function previewAnn() { preparePreview(); }
 
+// ── ANNUNCI PERSISTENZA ───────────────────────────────────────────────────────
+function saveAnnouncements() {
+  try {
+    localStorage.setItem('gg_announcements', JSON.stringify(announcements));
+  } catch(e) {
+    log('Annunci troppo grandi per il localStorage', 'warn');
+  }
+}
+
+function loadAnnouncements() {
+  try {
+    const saved = localStorage.getItem('gg_announcements');
+    if (!saved) return;
+    announcements = JSON.parse(saved);
+    announcements.forEach(a => { a.done = false; });
+    announcements.sort((a, b) => a.time.localeCompare(b.time));
+    renderAnnouncements();
+    if (announcements.length > 0) {
+      log(`📋 ${announcements.length} annunci ripristinati ✓`, 'ok');
+      ensureTicker();
+    }
+  } catch(e) {
+    log('Errore ripristino annunci', 'warn');
+  }
+}
+
 // ── GUIDA ────────────────────────────────────────────────────────────────────
 function toggleGuida() {
   const body = document.getElementById('guida-body');
@@ -2487,6 +2516,7 @@ function setPill(id, state, label) {
 // ── INIT: Check token in URL hash or localStorage ────────────────────────────
 window.addEventListener('load', () => {
   loadSourcePreference();
+  loadAnnouncements();
   // Ripristina schedule salvato
   const ws = localStorage.getItem('gg_week_schedule');
   if (ws) { try { weekSchedule = JSON.parse(ws); } catch(e){} }
