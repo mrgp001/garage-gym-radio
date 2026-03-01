@@ -1005,46 +1005,52 @@
 
   </div>
 
-  <!-- SCHEDULA MUSICA -->
-  <div class="card">
+  <!-- PIANIFICAZIONE SETTIMANALE -->
+  <div class="card span-2">
     <div class="card-tag">Pianificazione</div>
-    <div class="card-title">▶ Avvio Musica</div>
-
-    <label>Orario di avvio</label>
-    <input type="time" class="time-big" id="start-time" value="09:00">
-
-    <label>Volume iniziale (%)</label>
-    <input type="range" id="volume-in" min="0" max="100" value="70">
-    <span class="range-val" id="vol-in-display">70%</span>
-
-    <div class="btn-row">
-      <button class="btn btn-orange" onclick="scheduleStart()">⏱ PROGRAMMA</button>
-      <button class="btn btn-ghost btn-sm" onclick="sourcePlay()">▶ AVVIA ORA</button>
-      <button class="btn btn-ghost btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="cancelStart()">✕ ANNULLA</button>
-      <span class="pill pill-off" id="start-pill"><span class="pill-dot"></span>OFF</span>
+    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1.2rem;">
+      <div class="card-title" style="margin-bottom:0;">📅 Orari Settimanali</div>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+        <span class="pill pill-off" id="sched-pill"><span class="pill-dot"></span>OFF</span>
+        <button class="btn btn-orange" onclick="saveSchedule()">💾 SALVA &amp; ATTIVA</button>
+        <button class="btn btn-ghost btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="deactivateSchedule()">✕ DISATTIVA</button>
+        <button class="btn btn-ghost btn-sm" onclick="sourcePlay()">▶ ORA</button>
+        <button class="btn btn-ghost btn-sm" onclick="sourcePause()">⏹ ORA</button>
+      </div>
     </div>
-    <div style="font-size:0.72rem;color:var(--muted);margin-top:0.25rem;letter-spacing:1px;">🔁 Si ripete ogni giorno alla stessa ora finché non annulli</div>
-  </div>
 
-  <!-- STOP MUSICA -->
-  <div class="card">
-    <div class="card-tag">Pianificazione</div>
-    <div class="card-title">⏹ Stop Musica</div>
-
-    <label>Orario di stop</label>
-    <input type="time" class="time-big" id="stop-time" value="22:00">
-
-    <label>Dissolvenza in uscita (secondi)</label>
-    <input type="range" id="fade-dur" min="0" max="30" value="8">
-    <span class="range-val" id="fade-display">8s</span>
-
-    <div class="btn-row">
-      <button class="btn btn-orange" onclick="scheduleStop()">⏱ PROGRAMMA</button>
-      <button class="btn btn-ghost btn-sm" onclick="sourcePause()">⏹ STOP ORA</button>
-      <button class="btn btn-ghost btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="cancelStop()">✕ ANNULLA</button>
-      <span class="pill pill-off" id="stop-pill"><span class="pill-dot"></span>OFF</span>
+    <div style="overflow-x:auto;margin-bottom:1.2rem;">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr style="border-bottom:2px solid var(--border);">
+            <th style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;color:var(--muted);text-align:left;padding:0.4rem 0.75rem;text-transform:uppercase;">Giorno</th>
+            <th style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;color:var(--muted);text-align:center;padding:0.4rem 0.5rem;text-transform:uppercase;">Aperto</th>
+            <th style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;color:var(--muted);text-align:center;padding:0.4rem 0.5rem;text-transform:uppercase;">▶ Avvio</th>
+            <th style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;color:var(--muted);text-align:center;padding:0.4rem 0.5rem;text-transform:uppercase;">⏹ Stop</th>
+            <th style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;color:var(--muted);text-align:center;padding:0.4rem 0.5rem;text-transform:uppercase;">Copia ↓</th>
+          </tr>
+        </thead>
+        <tbody id="week-tbody"></tbody>
+      </table>
     </div>
-    <div style="font-size:0.72rem;color:var(--muted);margin-top:0.25rem;letter-spacing:1px;">🔁 Si ripete ogni giorno alla stessa ora finché non annulli</div>
+
+    <div style="display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1rem;">
+      <div style="flex:1;min-width:160px;">
+        <label>Volume avvio (%)</label>
+        <input type="range" id="volume-in" min="0" max="100" value="70" oninput="document.getElementById('vol-in-display').textContent=this.value+'%'">
+        <span class="range-val" id="vol-in-display">70%</span>
+      </div>
+      <div style="flex:1;min-width:160px;">
+        <label>Dissolvenza stop (s)</label>
+        <input type="range" id="fade-dur" min="0" max="30" value="8" oninput="document.getElementById('fade-display').textContent=(this.value=='0'?'Nessuna':this.value+'s')">
+        <span class="range-val" id="fade-display">8s</span>
+      </div>
+    </div>
+
+    <div id="next-event-bar" style="display:none;background:var(--steel);border:1px solid var(--border);border-left:4px solid var(--orange);padding:0.6rem 1rem;border-radius:1px;">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.68rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">Prossimo evento · </span>
+      <span id="next-event-text" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:var(--text);">—</span>
+    </div>
   </div>
 
   <!-- ANNUNCI VOCALI -->
@@ -1238,8 +1244,7 @@ let selectedPlaylistUri = null;
 let selectedPlaylistName = null;
 let spotifyDeviceId = null;
 let announcements = [];
-let startScheduled = false;
-let stopScheduled = false;
+let scheduleActive = false;
 let ticker = null;
 let voices = [];
 let npInterval = null;
@@ -1836,7 +1841,7 @@ function toggleWakeLock() {
 
 // Re-acquire on visibility change (page comes back into focus)
 document.addEventListener('visibilitychange', async () => {
-  if (document.visibilityState === 'visible' && (startScheduled || stopScheduled || announcements.length > 0)) {
+  if (document.visibilityState === 'visible' && (scheduleActive || announcements.length > 0)) {
     if (!wakeLock) {
       await requestWakeLock();
       log('🔄 Pagina tornata attiva — Wake Lock riattivato', 'info');
@@ -1845,56 +1850,129 @@ document.addEventListener('visibilitychange', async () => {
 });
 
 // ── SCHEDULING ───────────────────────────────────────────────────────────────
-function scheduleStart() {
-  const t = document.getElementById('start-time').value;
-  if (!t) return;
-  startScheduled = true;
-  setPill('start-pill', 'on', '⏱ ' + t);
-  log(`Avvio giornaliero programmato alle ${t} (${activeSource.toUpperCase()})`, 'ok');
+// ── PIANIFICAZIONE SETTIMANALE ───────────────────────────────────────────────
+const DAYS = ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'];
+const JS_TO_IDX = [6,0,1,2,3,4,5]; // getDay() 0=Dom→6, 1=Lun→0 ...
+
+let weekSchedule = [
+  {open:true,  start:'09:00', stop:'22:00'}, // Lun
+  {open:true,  start:'09:00', stop:'22:00'}, // Mar
+  {open:true,  start:'09:00', stop:'22:00'}, // Mer
+  {open:true,  start:'09:00', stop:'22:00'}, // Gio
+  {open:true,  start:'09:00', stop:'22:00'}, // Ven
+  {open:true,  start:'08:00', stop:'23:00'}, // Sab
+  {open:false, start:'10:00', stop:'20:00'}, // Dom
+];
+
+function todayIdx() { return JS_TO_IDX[new Date().getDay()]; }
+
+function buildWeekTable() {
+  const tbody = document.getElementById('week-tbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  const ti = todayIdx();
+  weekSchedule.forEach((day, i) => {
+    const isToday = (i === ti);
+    const tr = document.createElement('tr');
+    tr.style.cssText = 'border-bottom:1px solid var(--border);' + (isToday ? 'background:rgba(79,142,247,0.07);' : '');
+    tr.innerHTML = `
+      <td style="padding:0.55rem 0.75rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:1px;color:${isToday?'var(--orange)':day.open?'var(--text)':'var(--muted)'}">
+        ${DAYS[i]}${isToday?' ◀':''}
+      </td>
+      <td style="text-align:center;padding:0.4rem 0.5rem;">
+        <input type="checkbox" id="open-${i}" ${day.open?'checked':''} onchange="onDayToggle(${i})"
+          style="width:18px;height:18px;accent-color:var(--green);cursor:pointer;">
+      </td>
+      <td style="text-align:center;padding:0.4rem 0.4rem;">
+        <input type="time" id="start-${i}" value="${day.start}" ${!day.open?'disabled':''}
+          style="background:var(--steel);border:1px solid ${day.open?'var(--orange)':'var(--border)'};border-left:3px solid ${day.open?'var(--orange)':'var(--border)'};
+                 border-radius:1px;color:${day.open?'var(--text)':'var(--muted)'};font-family:'Barlow Condensed',sans-serif;
+                 font-weight:700;font-size:1.1rem;padding:0.3rem 0.4rem;outline:none;width:90px;">
+      </td>
+      <td style="text-align:center;padding:0.4rem 0.4rem;">
+        <input type="time" id="stop-${i}" value="${day.stop}" ${!day.open?'disabled':''}
+          style="background:var(--steel);border:1px solid ${day.open?'var(--border)':'var(--border)'};border-left:3px solid ${day.open?'var(--green)':'var(--border)'};
+                 border-radius:1px;color:${day.open?'var(--text)':'var(--muted)'};font-family:'Barlow Condensed',sans-serif;
+                 font-weight:700;font-size:1.1rem;padding:0.3rem 0.4rem;outline:none;width:90px;">
+      </td>
+      <td style="text-align:center;padding:0.4rem 0.4rem;">
+        <button class="btn btn-ghost btn-sm" onclick="copyDayToAll(${i})" ${!day.open?'disabled':''}
+          style="font-size:0.7rem;letter-spacing:1px;">⇅ COPIA</button>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function onDayToggle(i) {
+  weekSchedule[i].open = document.getElementById('open-'+i).checked;
+  buildWeekTable();
+}
+
+function copyDayToAll(i) {
+  const s = document.getElementById('start-'+i).value;
+  const e = document.getElementById('stop-'+i).value;
+  weekSchedule.forEach((d,j) => { if (d.open) { d.start=s; d.stop=e; } });
+  buildWeekTable();
+  log(`Orari ${DAYS[i]} copiati a tutti i giorni aperti`, 'info');
+}
+
+function saveSchedule() {
+  weekSchedule.forEach((d,i) => {
+    d.open  = document.getElementById('open-'+i).checked;
+    d.start = document.getElementById('start-'+i).value || '09:00';
+    d.stop  = document.getElementById('stop-'+i).value  || '22:00';
+  });
+  localStorage.setItem('gg_week_schedule', JSON.stringify(weekSchedule));
+  scheduleActive = true;
+  localStorage.setItem('gg_sched_active', '1');
+  setPill('sched-pill', 'playing', '▶ ATTIVA');
   ensureTicker();
   requestWakeLock();
+  buildWeekTable();
+  updateNextEvent();
+  log('📅 Pianificazione settimanale salvata e attiva', 'ok');
 }
 
-function cancelStart() {
-  startScheduled = false;
-  setPill('start-pill', 'off', 'OFF');
-  log('Avvio programmato annullato', 'warn');
+function deactivateSchedule() {
+  scheduleActive = false;
+  localStorage.setItem('gg_sched_active', '0');
+  setPill('sched-pill', 'off', 'OFF');
+  document.getElementById('next-event-bar').style.display = 'none';
+  log('Pianificazione disattivata', 'warn');
 }
 
-function scheduleStop() {
-  const t = document.getElementById('stop-time').value;
-  if (!t) return;
-  stopScheduled = true;
-  setPill('stop-pill', 'on', '⏱ ' + t);
-  log(`Stop giornaliero programmato alle ${t}`, 'ok');
-  ensureTicker();
-}
-
-function cancelStop() {
-  stopScheduled = false;
-  setPill('stop-pill', 'off', 'OFF');
-  log('Stop programmato annullato', 'warn');
+function updateNextEvent() {
+  if (!scheduleActive) return;
+  const now = new Date();
+  const hhmm = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
+  const day = weekSchedule[todayIdx()];
+  let txt;
+  if (!day.open)           txt = 'Oggi chiuso';
+  else if (hhmm < day.start) txt = `▶ Avvio oggi alle ${day.start}`;
+  else if (hhmm < day.stop)  txt = `⏹ Stop oggi alle ${day.stop}`;
+  else                       txt = '✓ Oggi completato';
+  document.getElementById('next-event-bar').style.display = 'block';
+  document.getElementById('next-event-text').textContent = txt;
 }
 
 function ensureTicker() {
   if (ticker) return;
   ticker = setInterval(tick, 5000);
-  log('Pianificazione attiva (controllo ogni 5s)', 'info');
+  log('Ticker pianificazione attivo', 'info');
 }
 
 function tick() {
   const now = new Date();
-  const hhmm = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  const hhmm = now.getHours().toString().padStart(2,'0')+':'+now.getMinutes().toString().padStart(2,'0');
   if (now.getSeconds() > 10) return;
 
-  // Repeat every day — do NOT clear startScheduled / stopScheduled
-  if (startScheduled && document.getElementById('start-time').value === hhmm) {
-    sourcePlay();
-    log(`⏱ Avvio automatico ore ${hhmm}`, 'ok');
-  }
-  if (stopScheduled && document.getElementById('stop-time').value === hhmm) {
-    sourcePause();
-    log(`⏱ Stop automatico ore ${hhmm}`, 'warn');
+  if (scheduleActive) {
+    const day = weekSchedule[todayIdx()];
+    if (day.open) {
+      if (day.start === hhmm) { sourcePlay();  log(`⏱ Avvio automatico ${hhmm}`, 'ok'); }
+      if (day.stop  === hhmm) { sourcePause(); log(`⏱ Stop automatico ${hhmm}`, 'warn'); }
+    }
+    updateNextEvent();
   }
 
   announcements.forEach(ann => {
@@ -2208,6 +2286,18 @@ function setPill(id, state, label) {
 
 // ── INIT: Check token in URL hash or localStorage ────────────────────────────
 window.addEventListener('load', () => {
+  // Ripristina schedule salvato
+  const ws = localStorage.getItem('gg_week_schedule');
+  if (ws) { try { weekSchedule = JSON.parse(ws); } catch(e){} }
+  buildWeekTable();
+  if (localStorage.getItem('gg_sched_active') === '1') {
+    scheduleActive = true;
+    setPill('sched-pill', 'playing', '▶ ATTIVA');
+    ensureTicker();
+    setTimeout(updateNextEvent, 300);
+    log('📅 Pianificazione ripristinata ✓', 'info');
+  }
+
   // Pre-fill redirect URI
   const ruEl = document.getElementById('redirect-uri');
   if (ruEl && !ruEl.value) ruEl.value = window.location.href.split('?')[0].split('#')[0];
