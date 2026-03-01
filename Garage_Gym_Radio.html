@@ -13,9 +13,9 @@
     --steel: #242424;
     --plate: #2e2e2e;
     --border: #404040;
-    --orange: #e8820c;
-    --orange-dim: rgba(232,130,12,0.12);
-    --orange-glow: rgba(232,130,12,0.3);
+    --orange: #4f8ef7;
+    --orange-dim: rgba(79,142,247,0.12);
+    --orange-glow: rgba(79,142,247,0.3);
     --green: #1DB954;
     --green-dim: rgba(29,185,84,0.15);
     --text: #c2c2c2;
@@ -546,7 +546,7 @@
     gap: 0.5rem;
     align-items: flex-start;
   }
-  .alert-warn { background: var(--orange-dim); border: 1px solid var(--orange); color: var(--orange); }
+  .alert-warn { background: rgba(79,142,247,0.08); border: 1px solid var(--orange); color: var(--orange); }
   .alert-info { background: rgba(29,185,84,0.1); border: 1px solid var(--green); color: #aaa; }
 
   /* scrollbars */
@@ -1035,7 +1035,7 @@
       <div class="card-title" style="margin-bottom:0;">📅 Orari Settimanali</div>
       <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
         <span class="pill pill-off" id="sched-pill"><span class="pill-dot"></span>OFF</span>
-        <button class="btn btn-orange" onclick="saveSchedule()">💾 SALVA &amp; ATTIVA</button>
+        <button class="btn btn-orange" style="background:#2563eb;box-shadow:0 4px 20px rgba(37,99,235,0.3);" onclick="saveSchedule()">💾 SALVA &amp; ATTIVA</button>
       </div>
     </div>
 
@@ -1139,7 +1139,7 @@
 
     <div style="display:flex;gap:0.75rem;margin-top:0.5rem;">
       <button class="btn btn-ghost" style="flex:1;white-space:nowrap;" onclick="testAnnFile()">🔊 PROVA AUDIO</button>
-      <button class="btn btn-orange" style="flex:1;white-space:nowrap;" onclick="addAnnFile()">+ AGGIUNGI</button>
+      <button class="btn btn-orange" style="flex:1;white-space:nowrap;background:#2563eb;box-shadow:0 4px 20px rgba(37,99,235,0.3);" onclick="addAnnFile()">+ AGGIUNGI</button>
     </div>
   </div>
 
@@ -1807,7 +1807,7 @@ function buildWeekTable() {
   weekSchedule.forEach((day, i) => {
     const isToday = (i === ti);
     const tr = document.createElement('tr');
-    tr.style.cssText = 'border-bottom:1px solid var(--border);vertical-align:middle;' + (isToday ? 'background:rgba(232,130,12,0.07);' : '');
+    tr.style.cssText = 'border-bottom:1px solid var(--border);vertical-align:middle;' + (isToday ? 'background:rgba(79,142,247,0.07);' : '');
     tr.innerHTML = `
       <td style="padding:0.55rem 0.75rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;letter-spacing:1px;color:${isToday?'var(--orange)':day.open?'var(--text)':'var(--muted)'};vertical-align:middle;">
         ${DAYS[i]}${isToday?' ◀':''}
