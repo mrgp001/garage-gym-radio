@@ -1872,13 +1872,13 @@ function updateSchedStatusPanel() {
     }
     const row = document.createElement('div');
     row.className = 'sched-status-row';
-    row.style.cssText = `background:var(--steel);border:1px solid var(--border);border-left:3px solid ${stateColor};border-radius:1px;padding:0.5rem 0.75rem;display:flex;align-items:center;gap:0.75rem;`;
+    row.style.cssText = `background:var(--steel);border:1px solid var(--border);border-left:3px solid ${stateColor};border-radius:1px;padding:0.6rem 0.75rem;display:flex;align-items:center;gap:0.75rem;`;
     row.innerHTML = `
-      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.9rem;color:${isToday?'var(--orange)':'var(--text)'};min-width:70px;">${DAYS[i]}${isToday?' ◀':''}</span>
-      <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;color:var(--green);">${day.start}</span>
-      <span style="color:var(--muted);font-size:0.7rem;">→</span>
-      <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.85rem;color:var(--danger);">${day.stop}</span>
-      ${stateLabel ? `<span style="margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:2px;color:${stateColor};font-weight:700;">${stateLabel}</span>` : ''}
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:${isToday?'var(--orange)':'var(--text)'};min-width:80px;">${DAYS[i]}${isToday?' ◀':''}</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;color:var(--green);font-weight:700;">${day.start}</span>
+      <span style="color:var(--muted);font-size:0.9rem;">→</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;color:var(--danger);font-weight:700;">${day.stop}</span>
+      ${stateLabel ? `<span style="margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;letter-spacing:2px;color:${stateColor};font-weight:700;">${stateLabel}</span>` : ''}
     `;
     panel.appendChild(row);
   });
@@ -1953,9 +1953,9 @@ function updateNextEvent() {
   const bar = document.getElementById('next-event-bar');
   bar.style.display = 'block';
   bar.innerHTML = `
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;color:var(--text);line-height:1.7;">
-      <div style="color:var(--green);font-weight:700;">${completedTxt}</div>
-      <div style="color:var(--muted);font-size:0.78rem;">${nextTxt}</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;color:var(--text);line-height:1.8;">
+      <div style="color:var(--green);font-weight:700;font-size:1rem;">${completedTxt}</div>
+      <div style="color:var(--muted);font-size:0.9rem;">${nextTxt}</div>
     </div>`;
 }
 
