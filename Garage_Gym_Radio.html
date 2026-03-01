@@ -875,7 +875,7 @@
   <div class="card span-3" id="source-selector-card">
     <div class="card-tag">Sorgente Musicale</div>
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
-      <div class="card-title" style="margin-bottom:0;">🎵 Scegli Sorgente</div>
+      <div class="card-title" style="margin-bottom:0;">🎵 Sorgente</div>
       <div class="source-tabs" id="source-tabs">
         <button class="source-tab active" onclick="switchSource('spotify')" id="tab-spotify">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
@@ -1811,63 +1811,28 @@ function buildWeekTable() {
   if (!tbody) return;
   tbody.innerHTML = '';
   const ti = todayIdx();
-  weekSchedule.forEach(function(day, i) {
+  weekSchedule.forEach((day, i) => {
     const isToday = (i === ti);
-    const dayColor = isToday ? 'var(--orange)' : (day.open ? 'var(--text)' : 'var(--muted)');
-    const startBorder = day.open ? 'var(--orange)' : 'var(--border)';
-    const stopBorder  = day.open ? 'var(--green)'  : 'var(--border)';
-    const inputColor  = day.open ? 'var(--text)'   : 'var(--muted)';
-    const inputStyle  = 'background:var(--steel);border:1px solid var(--border);border-radius:1px;font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:1rem;padding:0.2rem 0.35rem;outline:none;width:84px;color:' + inputColor + ';';
-
     const tr = document.createElement('tr');
-    tr.style.borderBottom = '1px solid var(--border)';
-    if (isToday) tr.style.background = 'rgba(79,142,247,0.07)';
-
-    // Nome giorno
-    const tdName = document.createElement('td');
-    tdName.style.cssText = 'padding:0.35rem 0.6rem;font-family:Barlow Condensed,sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:1px;color:' + dayColor;
-    tdName.textContent = DAYS[i] + (isToday ? ' ◀' : '');
-    tr.appendChild(tdName);
-
-    // Checkbox aperto
-    const tdCheck = document.createElement('td');
-    tdCheck.style.cssText = 'text-align:center;padding:0.25rem 0.4rem;';
-    const chk = document.createElement('input');
-    chk.type = 'checkbox'; chk.id = 'open-' + i;
-    chk.checked = day.open;
-    chk.style.cssText = 'width:16px;height:16px;accent-color:var(--green);cursor:pointer;';
-    chk.onchange = (function(idx){ return function(){ onDayToggle(idx); }; })(i);
-    tdCheck.appendChild(chk); tr.appendChild(tdCheck);
-
-    // Input avvio
-    const tdStart = document.createElement('td');
-    tdStart.style.cssText = 'text-align:center;padding:0.25rem 0.3rem;';
-    const inpStart = document.createElement('input');
-    inpStart.type = 'time'; inpStart.id = 'start-' + i; inpStart.value = day.start;
-    inpStart.disabled = !day.open;
-    inpStart.style.cssText = inputStyle + 'border-left:3px solid ' + startBorder + ';';
-    tdStart.appendChild(inpStart); tr.appendChild(tdStart);
-
-    // Input stop
-    const tdStop = document.createElement('td');
-    tdStop.style.cssText = 'text-align:center;padding:0.25rem 0.3rem;';
-    const inpStop = document.createElement('input');
-    inpStop.type = 'time'; inpStop.id = 'stop-' + i; inpStop.value = day.stop;
-    inpStop.disabled = !day.open;
-    inpStop.style.cssText = inputStyle + 'border-left:3px solid ' + stopBorder + ';';
-    tdStop.appendChild(inpStop); tr.appendChild(tdStop);
-
-    // Bottone copia
-    const tdCopy = document.createElement('td');
-    tdCopy.style.cssText = 'text-align:center;padding:0.25rem 0.3rem;';
-    const btn = document.createElement('button');
-    btn.className = 'btn btn-ghost btn-sm';
-    btn.style.cssText = 'font-size:0.65rem;padding:0.25rem 0.6rem;letter-spacing:1px;';
-    btn.textContent = '⇅';
-    btn.disabled = !day.open;
-    btn.onclick = (function(idx){ return function(){ copyDayToAll(idx); }; })(i);
-    tdCopy.appendChild(btn); tr.appendChild(tdCopy);
-
+    tr.style.cssText = 'border-bottom:1px solid var(--border);' + (isToday ? 'background:rgba(79,142,247,0.07);' : '');
+    tr.innerHTML = `
+      <td style="padding:0.35rem 0.6rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.95rem;letter-spacing:1px;color:${isToday?'var(--orange)':day.open?'var(--text)':'var(--muted)'}">
+        ${DAYS[i]}${isToday?' ◀':''}
+      </td>
+      <td style="text-align:center;padding:0.25rem 0.4rem;">
+        <input type="checkbox" id="open-${i}" ${day.open?'checked':''} onchange="onDayToggle(${i})" style="width:16px;height:16px;accent-color:var(--green);cursor:pointer;">
+      </td>
+      <td style="text-align:center;padding:0.25rem 0.3rem;">
+        <input type="time" id="start-${i}" value="${day.start}" ${!day.open?'disabled':''}
+          style="background:var(--steel);border:1px solid ${day.open?'var(--orange)':'var(--border)'};border-left:3px solid ${day.open?'var(--orange)':'var(--border)'};border-radius:1px;color:${day.open?'var(--text)':'var(--muted)'};font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;padding:0.2rem 0.35rem;outline:none;width:84px;">
+      </td>
+      <td style="text-align:center;padding:0.25rem 0.3rem;">
+        <input type="time" id="stop-${i}" value="${day.stop}" ${!day.open?'disabled':''}
+          style="background:var(--steel);border:1px solid ${day.open?'var(--border)':'var(--border)'};border-left:3px solid ${day.open?'var(--green)':'var(--border)'};border-radius:1px;color:${day.open?'var(--text)':'var(--muted)'};font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;padding:0.2rem 0.35rem;outline:none;width:84px;">
+      </td>
+      <td style="text-align:center;padding:0.25rem 0.3rem;">
+        <button class="btn btn-ghost btn-sm" onclick="copyDayToAll(${i})" ${!day.open?'disabled':''} style="font-size:0.65rem;padding:0.25rem 0.6rem;letter-spacing:1px;">⇅</button>
+      </td>`;
     tbody.appendChild(tr);
   });
 }
