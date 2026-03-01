@@ -1128,7 +1128,7 @@
     </div>
 
     <div style="margin-bottom:1rem;">
-      <label>Nome annuncio</label>
+      <label>Nome annuncio (opzionale)</label>
       <input type="text" id="ann-custom-name" placeholder="Es: Avvio lezione, Jingle apertura…" style="margin-bottom:0;">
     </div>
 
@@ -1145,6 +1145,18 @@
     <div class="ann-list" id="ann-list">
       <div class="empty-state">⚡ Nessun annuncio programmato<br>Aggiungili dal pannello a sinistra</div>
     </div>
+  </div>
+
+  <!-- LOG -->
+  <div class="card span-3">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <div>
+        <div class="card-tag">Sistema</div>
+        <div class="card-title" style="margin-bottom:0;font-size:1.2rem;">📟 Activity Log</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="clearLog()">PULISCI LOG</button>
+    </div>
+    <div class="log-box" id="log"></div>
   </div>
 
 
@@ -2246,7 +2258,7 @@ function renderAnnouncements() {
         <div class="ann-meta">${a.repeat ? '🔁 Giornaliero' : '1× Una volta'} · ${typeLabel}${a.done ? ' · ✓ Eseguito' : ''}</div>
       </div>
       <div style="display:flex;gap:0.4rem;flex-shrink:0;">
-        <button class="btn btn-ghost btn-sm" onclick="testAnn(${a.id})">${(annPreviewId === a.id && annPreviewAudio && !annPreviewAudio.paused) ? '⏹' : '🔊'}</button>
+        <button class="btn btn-ghost btn-sm" onclick="testAnn(${a.id})">🔊</button>
         <button class="btn btn-danger btn-sm" onclick="removeAnn(${a.id})">✕</button>
       </div>
     </div>
@@ -2294,34 +2306,15 @@ function doSpeak(text, voiceIdx, rate = 0.9, onEnd = null) {
   speechSynthesis.speak(utt);
 }
 
-// Global preview player for ann-list
-let annPreviewAudio = null;
-let annPreviewId = null;
-
 function testAnn(id) {
   const ann = announcements.find(a => a.id === id);
   if (!ann) return;
-
-  // If same item is playing → stop it
-  if (annPreviewAudio && annPreviewId === id && !annPreviewAudio.paused) {
-    annPreviewAudio.pause();
-    annPreviewAudio.currentTime = 0;
-    annPreviewAudio = null;
-    annPreviewId = null;
-    renderAnnouncements();
-    return;
-  }
-
-  // Stop any currently playing preview
-  if (annPreviewAudio) { annPreviewAudio.pause(); annPreviewAudio.currentTime = 0; }
-
   if (ann.type === 'file' && ann.audioData) {
-    annPreviewAudio = new Audio(ann.audioData);
-    annPreviewId = id;
-    annPreviewAudio.play();
-    annPreviewAudio.onended = () => { annPreviewAudio = null; annPreviewId = null; renderAnnouncements(); };
+    new Audio(ann.audioData).play();
     log(`Test audio: ${ann.fileName}`, 'info');
-    renderAnnouncements(); // update button icon
+  } else if (ann.type === 'tts') {
+    doSpeak(ann.text, ann.voiceIdx, ann.rate);
+    log(`Test TTS: ${ann.time}`, 'info');
   }
 }
 
