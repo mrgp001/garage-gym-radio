@@ -1869,14 +1869,38 @@ function updateSchedStatusPanel() {
     row.className = 'sched-status-row';
     row.style.cssText = `background:var(--steel);border:1px solid var(--border);border-left:3px solid ${stateColor};border-radius:1px;padding:0.6rem 0.75rem;display:flex;align-items:center;gap:0.75rem;`;
     row.innerHTML = `
-      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:${isToday?'var(--orange)':'var(--text)'};min-width:80px;">${DAYS[i]}${isToday?' <span style="font-size:0.6rem;opacity:0.7;margin-left:4px;">◀</span>':''}</span>
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:${isToday?'var(--orange)':'var(--text)'};min-width:80px;display:inline-flex;align-items:center;gap:4px;">${DAYS[i]}${isToday?'<span style="font-size:0.55rem;opacity:0.7;line-height:1;vertical-align:middle;">◀</span>':''}</span>
       <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;color:var(--green);font-weight:700;">${day.start}</span>
       <span style="color:var(--muted);font-size:0.9rem;">→</span>
       <span style="font-family:'Barlow Condensed',sans-serif;font-size:1.05rem;color:var(--danger);font-weight:700;">${day.stop}</span>
-      ${stateLabel ? `<span style="margin-left:auto;font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;letter-spacing:2px;color:${stateColor};font-weight:700;">${stateLabel}</span>` : ''}
+      ${stateLabel ? `<span style="font-family:'Barlow Condensed',sans-serif;font-size:0.82rem;letter-spacing:2px;color:${stateColor};font-weight:700;">${stateLabel}</span>` : ''}
+      <span style="margin-left:auto;display:inline-flex;gap:0.4rem;">
+        <button onclick="editSchedDay(${i})" style="background:none;border:1px solid var(--border);color:var(--muted);border-radius:2px;padding:0.15rem 0.45rem;cursor:pointer;font-size:0.75rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;" title="Modifica">✏</button>
+        <button onclick="removeSchedDay(${i})" style="background:none;border:1px solid var(--danger);color:var(--danger);border-radius:2px;padding:0.15rem 0.45rem;cursor:pointer;font-size:0.75rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;" title="Rimuovi">✕</button>
+      </span>
     `;
     panel.appendChild(row);
   });
+}
+
+function editSchedDay(i) {
+  const day = weekSchedule[i];
+  const newStart = prompt(`${DAYS[i]} — Orario avvio (HH:MM):`, day.start);
+  if (newStart === null) return;
+  const newStop = prompt(`${DAYS[i]} — Orario stop (HH:MM):`, day.stop);
+  if (newStop === null) return;
+  if (newStart) day.start = newStart;
+  if (newStop) day.stop = newStop;
+  buildWeekTable();
+  updateSchedStatusPanel();
+  log(`✏ ${DAYS[i]} aggiornato: ${day.start} → ${day.stop}`, 'info');
+}
+
+function removeSchedDay(i) {
+  weekSchedule[i].open = false;
+  buildWeekTable();
+  updateSchedStatusPanel();
+  log(`✕ ${DAYS[i]} rimosso dalla pianificazione`, 'warn');
 }
 
 function saveSchedule() {
