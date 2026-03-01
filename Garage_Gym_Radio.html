@@ -912,6 +912,28 @@
       </div>
     </div>
 
+    <!-- FALLBACK SETTINGS -->
+    <div id="fallback-bar" style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;background:var(--steel);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:1px;padding:0.65rem 1rem;margin-bottom:1.2rem;">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:3px;text-transform:uppercase;color:var(--orange);white-space:nowrap;">⚡ Fallback Auto</span>
+      <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+        <label style="margin:0;font-size:0.78rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);white-space:nowrap;">Sorgente preferita</label>
+        <select id="preferred-source" onchange="saveSourcePreference()" style="width:auto;margin-bottom:0;padding:0.35rem 0.6rem;font-size:0.88rem;border-left-width:2px;">
+          <option value="spotify">Spotify</option>
+          <option value="folder">Cartella PC</option>
+        </select>
+      </div>
+      <div style="display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;">
+        <label style="margin:0;font-size:0.78rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);white-space:nowrap;">Timeout fallback</label>
+        <select id="fallback-timeout" onchange="saveSourcePreference()" style="width:auto;margin-bottom:0;padding:0.35rem 0.6rem;font-size:0.88rem;border-left-width:2px;">
+          <option value="5">5 sec</option>
+          <option value="10" selected>10 sec</option>
+          <option value="15">15 sec</option>
+          <option value="30">30 sec</option>
+        </select>
+      </div>
+      <div id="fallback-status" style="font-family:'Barlow Condensed',sans-serif;font-size:0.78rem;letter-spacing:2px;color:var(--muted);margin-left:auto;text-transform:uppercase;"></div>
+    </div>
+
     <!-- SPOTIFY PANEL -->
     <div class="source-panel active" id="panel-spotify">
       <div id="spotify-connect-area">
@@ -1261,14 +1283,114 @@ function switchSource(src) {
   log(`Sorgente cambiata: ${src.toUpperCase()}`, 'info');
 }
 
-function sourcePlay() {
-  if (activeSource === 'spotify') spotifyPlay();
-  else if (activeSource === 'folder') folderPlay();
+// ── PREFERRED SOURCE & FALLBACK ──────────────────────────────────────────────
+let preferredSource = 'spotify'; // saved preference
+let fallbackTimeoutSec = 10;
+let fallbackTimer = null;
+
+function saveSourcePreference() {
+  preferredSource = document.getElementById('preferred-source').value;
+  fallbackTimeoutSec = parseInt(document.getElementById('fallback-timeout').value);
+  localStorage.setItem('gg_preferred_source', preferredSource);
+  localStorage.setItem('gg_fallback_timeout', fallbackTimeoutSec);
+  log(`Sorgente preferita: ${preferredSource.toUpperCase()} · Fallback dopo ${fallbackTimeoutSec}s`, 'info');
+}
+
+function loadSourcePreference() {
+  const ps = localStorage.getItem('gg_preferred_source');
+  const ft = localStorage.getItem('gg_fallback_timeout');
+  if (ps) { preferredSource = ps; document.getElementById('preferred-source').value = ps; }
+  if (ft) { fallbackTimeoutSec = parseInt(ft); document.getElementById('fallback-timeout').value = ft; }
+}
+
+function setFallbackStatus(msg, color) {
+  const el = document.getElementById('fallback-status');
+  if (el) { el.textContent = msg; el.style.color = color || 'var(--muted)'; }
+}
+
+function isSpotifyAvailable() {
+  return !!(spotifyToken && (sdkReady || true)); // token present = potentially available
+}
+
+function isFolderAvailable() {
+  return folderTracks && folderTracks.length > 0;
+}
+
+async function sourcePlay() {
+  clearTimeout(fallbackTimer);
+  const primary = preferredSource;
+  const fallback = primary === 'spotify' ? 'folder' : 'spotify';
+
+  // Try primary
+  if (primary === 'spotify') {
+    if (!isSpotifyAvailable()) {
+      log(`⚡ Spotify non disponibile — provo ${fallback.toUpperCase()}`, 'warn');
+      setFallbackStatus(`FALLBACK → ${fallback.toUpperCase()}`, 'var(--orange)');
+      tryFallback(fallback);
+      return;
+    }
+    setFallbackStatus('AVVIO SPOTIFY…', 'var(--orange)');
+    try {
+      await spotifyPlay();
+      // Watch for actually playing after timeout
+      fallbackTimer = setTimeout(async () => {
+        // Check if spotify actually started
+        const data = await spotifyFetch('https://api.spotify.com/v1/me/player');
+        if (!data || !data.is_playing) {
+          log(`⚡ Spotify non risponde dopo ${fallbackTimeoutSec}s — attivo CARTELLA PC`, 'warn');
+          setFallbackStatus('FALLBACK → CARTELLA', 'var(--danger)');
+          tryFallback('folder');
+        } else {
+          setFallbackStatus('SPOTIFY ▶', 'var(--green)');
+        }
+      }, fallbackTimeoutSec * 1000);
+    } catch(e) {
+      log(`⚡ Errore Spotify — provo cartella`, 'warn');
+      tryFallback('folder');
+    }
+  } else {
+    // primary = folder
+    if (!isFolderAvailable()) {
+      log(`⚡ Cartella non caricata — provo SPOTIFY`, 'warn');
+      setFallbackStatus('FALLBACK → SPOTIFY', 'var(--orange)');
+      tryFallback('spotify');
+      return;
+    }
+    setFallbackStatus('AVVIO CARTELLA…', 'var(--orange)');
+    folderPlay();
+    // Check after timeout if it's actually playing
+    fallbackTimer = setTimeout(() => {
+      if (!folderPlaying) {
+        log(`⚡ Cartella non parte — provo SPOTIFY`, 'warn');
+        setFallbackStatus('FALLBACK → SPOTIFY', 'var(--danger)');
+        tryFallback('spotify');
+      } else {
+        setFallbackStatus('CARTELLA ▶', 'var(--green)');
+      }
+    }, fallbackTimeoutSec * 1000);
+  }
+}
+
+function tryFallback(src) {
+  if (src === 'spotify') {
+    if (!isSpotifyAvailable()) { log('⚡ Fallback Spotify non disponibile — nessuna sorgente attiva', 'err'); setFallbackStatus('NESSUNA SORGENTE', 'var(--danger)'); return; }
+    spotifyPlay();
+    setFallbackStatus('SPOTIFY ▶ (fallback)', 'var(--orange)');
+  } else {
+    if (!isFolderAvailable()) { log('⚡ Fallback cartella non disponibile — nessuna sorgente attiva', 'err'); setFallbackStatus('NESSUNA SORGENTE', 'var(--danger)'); return; }
+    folderPlay();
+    setFallbackStatus('CARTELLA ▶ (fallback)', 'var(--orange)');
+  }
 }
 
 function sourcePause() {
+  clearTimeout(fallbackTimer);
+  setFallbackStatus('', '');
   if (activeSource === 'spotify') spotifyPause();
   else if (activeSource === 'folder') folderPause();
+  // Also stop whichever might be playing as fallback
+  if (sdkIsPlaying) spotifyPause();
+  if (folderPlaying) folderPause();
 }
 
 // ── SPOTIFY ───────────────────────────────────────────────────────────────────
@@ -2364,6 +2486,7 @@ function setPill(id, state, label) {
 
 // ── INIT: Check token in URL hash or localStorage ────────────────────────────
 window.addEventListener('load', () => {
+  loadSourcePreference();
   // Ripristina schedule salvato
   const ws = localStorage.getItem('gg_week_schedule');
   if (ws) { try { weekSchedule = JSON.parse(ws); } catch(e){} }
