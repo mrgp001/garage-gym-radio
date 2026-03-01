@@ -104,7 +104,7 @@
     align-items: center;
     gap: 0.75rem;
     margin-left: auto;
-    width: 280px;
+    width: 380px;
     flex-shrink: 0;
     padding: 0.5rem 1rem;
     background: var(--steel);
@@ -1021,7 +1021,7 @@
       </div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start;">
+    <div style="display:grid;grid-template-columns:1fr 460px;gap:1.5rem;align-items:start;">
       <!-- LEFT: table + sliders -->
       <div>
         <div style="overflow-x:auto;margin-bottom:1.2rem;">
@@ -1114,9 +1114,14 @@
       </div>
     </div>
 
+    <div style="margin-bottom:1rem;">
+      <label>Nome annuncio (opzionale)</label>
+      <input type="text" id="ann-custom-name" placeholder="Es: Avvio lezione, Jingle apertura…" style="margin-bottom:0;">
+    </div>
+
     <div class="btn-row" style="margin-top:0.5rem;">
-      <button class="btn btn-ghost btn-sm" onclick="testAnnFile()">🔊 PROVA AUDIO</button>
-      <button class="btn btn-orange btn-sm" onclick="addAnnFile()">+ AGGIUNGI</button>
+      <button class="btn btn-ghost" onclick="testAnnFile()">🔊 PROVA AUDIO</button>
+      <button class="btn btn-orange" onclick="addAnnFile()">+ AGGIUNGI</button>
     </div>
   </div>
 
@@ -2101,10 +2106,13 @@ function addAnnFile() {
   const time = document.getElementById('ann-time').value;
   const dayVal = document.getElementById('ann-day').value;
   const repeat = (dayVal === 'every');
+  const customName = document.getElementById('ann-custom-name').value.trim();
+  const displayName = customName || annAudioFileName;
   if (!time) { log('Seleziona un orario!', 'warn'); return; }
   if (!annAudioFileData) { log('Carica un file audio prima!', 'warn'); return; }
-  announcements.push({ id: Date.now(), time, fileName: annAudioFileName, audioData: annAudioFileData, repeat, type: 'file', done: false });
-  log(`Annuncio audio (${annAudioFileName}) aggiunto alle ${time}${repeat ? ' · ogni giorno' : ''}`, 'ok');
+  announcements.push({ id: Date.now(), time, fileName: displayName, audioData: annAudioFileData, repeat, type: 'file', done: false });
+  log(`Annuncio "${displayName}" aggiunto alle ${time}${repeat ? ' · ogni giorno' : ''}`, 'ok');
+  document.getElementById('ann-custom-name').value = '';
   announcements.sort((a, b) => a.time.localeCompare(b.time));
   renderAnnouncements();
   ensureTicker();
