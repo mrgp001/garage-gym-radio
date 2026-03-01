@@ -1,0 +1,2192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Garage Gym Radio</title>
+<link rel="icon" type="image/jpeg" href="data:image/jpeg;base64,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">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,700;0,900;1,900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0c0c0c;
+    --iron: #161616;
+    --steel: #242424;
+    --plate: #2e2e2e;
+    --border: #404040;
+    --orange: #4f8ef7;
+    --orange-dim: rgba(79,142,247,0.12);
+    --orange-glow: rgba(79,142,247,0.3);
+    --green: #1DB954;
+    --green-dim: rgba(29,185,84,0.15);
+    --text: #c2c2c2;
+    --muted: #888;
+    --danger: #e03030;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Noise texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--iron);
+    border-bottom: 3px solid var(--orange);
+    padding: 0 2rem;
+    display: flex;
+    align-items: stretch;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo-block {
+    padding: 1.2rem 2rem 1.2rem 0;
+    border-right: 2px solid var(--border);
+    margin-right: 2rem;
+  }
+
+  .logo-gym {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 2.2rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  .logo-gym span { color: var(--orange); }
+
+  .logo-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex: 1;
+  }
+
+  #clock {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+    color: var(--orange);
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 20px var(--orange-glow);
+  }
+
+  .now-playing-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    padding: 0.5rem 1rem;
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .now-playing-header .track-info { flex: 1; min-width: 0; }
+  .now-playing-header .track-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .now-playing-header .track-artist { font-size: 0.75rem; color: var(--muted); }
+
+  .bars {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    height: 20px;
+  }
+  .bar {
+    width: 3px;
+    background: var(--green);
+    border-radius: 2px;
+    animation: bar-anim 0.8s ease-in-out infinite alternate;
+  }
+  .bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .bar:nth-child(2) { height: 16px; animation-delay: 0.15s; }
+  .bar:nth-child(3) { height: 12px; animation-delay: 0.3s; }
+  .bar:nth-child(4) { height: 20px; animation-delay: 0.1s; }
+  .bar:nth-child(5) { height: 6px; animation-delay: 0.25s; }
+  .bars.paused .bar { animation-play-state: paused; }
+
+  @keyframes bar-anim {
+    from { transform: scaleY(0.3); opacity: 0.5; }
+    to { transform: scaleY(1); opacity: 1; }
+  }
+
+  /* ── MAIN LAYOUT ── */
+  main {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1100px) { main { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { main { grid-template-columns: 1fr; } }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--iron);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  .card-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card-tag::before {
+    content: '';
+    width: 20px;
+    height: 2px;
+    background: var(--orange);
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: 1 / -1; }
+
+  /* ── SETUP SPOTIFY ── */
+  .setup-banner {
+    background: linear-gradient(135deg, var(--green-dim), transparent);
+    border: 1px solid var(--green);
+    border-radius: 2px;
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    grid-column: 1 / -1;
+  }
+
+  .spotify-logo {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  .setup-text { flex: 1; }
+  .setup-text strong {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .setup-text span { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── FORM ELEMENTS ── */
+  label {
+    display: block;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.4rem;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  input[type="time"],
+  input[type="text"],
+  input[type="password"],
+  textarea,
+  select {
+    width: 100%;
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--orange);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: 1px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 1rem;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-left-color: var(--orange);
+    box-shadow: 0 0 0 2px var(--orange-dim);
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--orange);
+    margin-bottom: 0.3rem;
+  }
+
+  .range-val {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--orange);
+    margin-bottom: 1rem;
+    display: block;
+  }
+
+  textarea { resize: vertical; min-height: 80px; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.15s;
+    border-radius: 1px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.1);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .btn:hover::before { opacity: 1; }
+  .btn:active { transform: scale(0.97); }
+
+  .btn-orange {
+    background: var(--orange);
+    color: #fff;
+    box-shadow: 0 4px 20px var(--orange-dim);
+  }
+
+  .btn-green {
+    background: var(--green);
+    color: #fff;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .btn-ghost:hover { border-color: var(--orange); }
+
+  .btn-danger {
+    background: var(--danger);
+    color: #fff;
+  }
+
+  .btn-sm { padding: 0.4rem 0.9rem; font-size: 0.8rem; letter-spacing: 2px; }
+  .btn-full { width: 100%; }
+
+  .btn-row { display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; margin-top: 1rem; }
+
+  /* ── STATUS PILLS ── */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border-radius: 1px;
+    font-weight: 700;
+  }
+
+  .pill-off { background: var(--steel); color: var(--muted); border: 1px solid var(--border); }
+  .pill-on { background: var(--orange-dim); color: var(--orange); border: 1px solid var(--orange); }
+  .pill-playing { background: var(--green-dim); color: var(--green); border: 1px solid var(--green); }
+  .pill-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: pulse 1.4s infinite; }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  /* ── DIVIDER ── */
+  .sep {
+    height: 1px;
+    background: var(--border);
+    margin: 1.2rem 0;
+    position: relative;
+  }
+
+  /* ── ANNOUNCEMENTS ── */
+  .ann-list { display: flex; flex-direction: column; gap: 0.6rem; max-height: 320px; overflow-y: auto; }
+
+  .ann-item {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--orange);
+    padding: 0.8rem 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border-radius: 1px;
+  }
+
+  .ann-item.done-once { border-left-color: var(--muted); opacity: 0.6; }
+  .ann-item.repeat { border-left-color: var(--green); }
+
+  .ann-time-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: var(--orange);
+    line-height: 1;
+    min-width: 50px;
+  }
+
+  .ann-body { flex: 1; }
+  .ann-text-display { font-size: 0.85rem; line-height: 1.5; }
+  .ann-meta { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; letter-spacing: 1px; }
+
+  /* ── LOG ── */
+  .log-box {
+    background: #080808;
+    border: 1px solid var(--border);
+    border-radius: 1px;
+    padding: 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    max-height: 200px;
+    overflow-y: auto;
+    letter-spacing: 1px;
+  }
+
+  .log-line { display: flex; gap: 1rem; padding: 0.15rem 0; }
+  .log-ts { color: var(--muted); min-width: 70px; }
+  .log-ok { color: var(--green); }
+  .log-warn { color: var(--orange); }
+  .log-err { color: var(--danger); }
+  .log-info { color: #aaa; }
+
+  /* ── SPOTIFY SECTION ── */
+  .spotify-card { border-color: var(--green); }
+  .spotify-card .card-tag::before { background: var(--green); }
+
+  .playlist-item {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1rem;
+    border-radius: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 0.5rem;
+  }
+  .playlist-item:hover { border-color: var(--green); background: var(--green-dim); }
+  .playlist-item.selected { border-color: var(--green); background: var(--green-dim); }
+  .playlist-img { width: 44px; height: 44px; border-radius: 2px; object-fit: cover; background: var(--plate); }
+  .playlist-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 1px; }
+  .playlist-count { font-size: 0.75rem; color: var(--muted); }
+  .playlist-check { margin-left: auto; font-size: 1.2rem; opacity: 0; }
+  .playlist-item.selected .playlist-check { opacity: 1; color: var(--green); }
+
+  /* ── TABS ── */
+  .tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+  .tab {
+    padding: 0.6rem 1.2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+  }
+  .tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* ── BIG TIME INPUTS ── */
+  .time-big {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    letter-spacing: 4px;
+    color: var(--orange);
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--orange);
+    padding: 0.5rem 1rem;
+    border-radius: 1px;
+    width: 100%;
+    outline: none;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .time-big:focus { box-shadow: 0 0 0 2px var(--orange-dim); }
+
+  /* playback progress */
+  .progress-bar-wrap {
+    height: 4px;
+    background: var(--plate);
+    border-radius: 2px;
+    margin: 0.75rem 0;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--green);
+    border-radius: 2px;
+    transition: width 1s linear;
+    width: 0%;
+  }
+
+  /* ── ALERT ── */
+  .alert {
+    padding: 0.75rem 1rem;
+    border-radius: 1px;
+    font-size: 0.82rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+  .alert-warn { background: rgba(79,142,247,0.08); border: 1px solid var(--orange); color: var(--orange); }
+  .alert-info { background: rgba(29,185,84,0.1); border: 1px solid var(--green); color: #aaa; }
+
+  /* scrollbars */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--steel); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+  .empty-state { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: 0.85rem; line-height: 2; }
+
+  /* ── ANNUNCI TABS ── */
+  .ann-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 1.2rem; gap: 0; }
+  .ann-tab {
+    padding: 0.5rem 1.1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .ann-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .ann-tab-content { display: none; }
+  .ann-tab-content.active { display: block; }
+
+  /* ── PREVIEW BOX ── */
+  .preview-box {
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-radius: 1px;
+    padding: 1rem;
+    margin-top: 0.75rem;
+    display: none;
+  }
+  .preview-box.visible { display: block; }
+
+  .preview-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .preview-waveform {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 32px;
+    margin-bottom: 0.75rem;
+  }
+
+  .wv-bar {
+    flex: 1;
+    background: var(--border);
+    border-radius: 2px;
+    min-height: 4px;
+    transition: background 0.2s;
+  }
+
+  .wv-bar.active { background: var(--orange); }
+
+  @keyframes wv-anim {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+  }
+
+  .wv-bar.speaking {
+    background: var(--orange);
+    animation: wv-anim 0.5s ease-in-out infinite;
+  }
+
+  .preview-controls { display: flex; align-items: center; gap: 0.75rem; }
+  .preview-text-display {
+    font-size: 0.82rem;
+    color: var(--text);
+    line-height: 1.5;
+    background: var(--plate);
+    padding: 0.6rem 0.8rem;
+    border-radius: 1px;
+    margin-bottom: 0.75rem;
+    border-left: 3px solid var(--orange);
+    font-style: italic;
+    max-height: 80px;
+    overflow-y: auto;
+  }
+
+  .preview-status {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    color: var(--muted);
+    flex: 1;
+    text-transform: uppercase;
+  }
+
+  /* ── FILE UPLOAD ── */
+  .file-drop-zone {
+    border: 2px dashed var(--border);
+    border-radius: 1px;
+    padding: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .file-drop-zone:hover, .file-drop-zone.dragover {
+    border-color: var(--orange);
+    background: var(--orange-dim);
+  }
+
+  .file-drop-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  .file-drop-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .file-drop-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .file-drop-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.25rem; }
+
+  .audio-file-loaded {
+    background: var(--steel);
+    border: 1px solid var(--green);
+    border-left: 3px solid var(--green);
+    padding: 0.75rem 1rem;
+    border-radius: 1px;
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .audio-file-loaded.visible { display: flex; }
+  .audio-file-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--green);
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .audio-file-size { font-size: 0.72rem; color: var(--muted); }
+
+  .audio-mini-player {
+    background: var(--plate);
+    border: 1px solid var(--border);
+    border-radius: 1px;
+    padding: 0.6rem 0.9rem;
+    margin-bottom: 1rem;
+    display: none;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .audio-mini-player.visible { display: flex; }
+  .audio-mini-player audio { flex: 1; height: 28px; accent-color: var(--orange); }
+  /* ── SOURCE TABS ── */
+  .source-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .source-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.2rem;
+    background: var(--steel);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: all 0.2s;
+  }
+
+  .source-tab:hover { border-color: var(--orange); color: var(--text); }
+  .source-tab.active { background: var(--plate); border-color: var(--orange); color: var(--orange); }
+
+  .source-panel { display: none; }
+  .source-panel.active { display: block; }
+
+  /* Folder select button */
+  .folder-select-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.2rem;
+    background: var(--steel);
+    border: 1px dashed var(--border);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 1px;
+    transition: all 0.2s;
+  }
+  .folder-select-btn:hover { border-color: var(--orange); }
+
+  /* Track list */
+  .track-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--steel);
+    border: 1px solid var(--border);
+    border-radius: 1px;
+    margin-bottom: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .track-item:hover { border-color: var(--orange); }
+  .track-item.playing { border-left: 3px solid var(--green); background: var(--green-dim); }
+  .track-num { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 0.85rem; color: var(--muted); min-width: 28px; }
+  .track-name-item { flex: 1; font-size: 0.85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .track-dur { font-size: 0.75rem; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
+
+  /* Now playing bar */
+  .now-playing-bar {
+    background: var(--steel);
+    border: 1px solid var(--green);
+    border-left: 4px solid var(--green);
+    padding: 0.75rem 1rem;
+    border-radius: 1px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .np-info { flex: 1; min-width: 0; }
+  .np-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--green); }
+  .np-sub { font-size: 0.75rem; color: var(--muted); }
+
+  /* YouTube danger btn */
+  .btn-danger { background: #FF0000; color: #fff; }
+
+  /* ── GUIDA ── */
+  .guida-step {
+    display: flex;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .guida-step-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 2.8rem;
+    color: var(--border);
+    line-height: 1;
+    min-width: 52px;
+    letter-spacing: -1px;
+  }
+
+  .guida-step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 0.5rem;
+  }
+
+  .guida-step-text {
+    font-size: 0.88rem;
+    color: #ccc;
+    line-height: 1.75;
+    margin-bottom: 0.6rem;
+  }
+
+  .guida-step-text code {
+    background: var(--plate);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent3, #5affdf);
+  }
+
+  .guida-step-text strong { color: var(--text); }
+
+  .guida-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    background: var(--steel);
+    border-left: 3px solid var(--border);
+    padding: 0.5rem 0.8rem;
+    border-radius: 1px;
+    line-height: 1.6;
+  }
+
+  .guida-step-content { flex: 1; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-block">
+    <div class="logo-gym">GARAGE<span>GYM</span></div>
+    <div class="logo-sub" style="font-size:0.9rem;letter-spacing:4px;color:var(--muted);font-weight:700;">RADIO</div>
+  </div>
+  <div class="header-right">
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:0.1rem;">
+      <div id="clock">--:--:--</div>
+      <div id="clock-date" style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;font-weight:700;">— · —</div>
+    </div>
+    <div class="now-playing-header" id="np-header" style="display:none">
+      <div class="bars" id="bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+      <div class="track-info">
+        <div class="track-name" id="np-name">Nessun brano</div>
+        <div class="track-artist" id="np-artist">—</div>
+      </div>
+      <div class="progress-bar-wrap" style="width:120px;margin:0;">
+        <div class="progress-bar-fill" id="np-progress"></div>
+      </div>
+    </div>
+    <button id="wakelock-btn" class="btn btn-ghost btn-sm" onclick="toggleWakeLock()" title="Impedisce al PC di andare in sleep" style="margin-left:auto;white-space:nowrap;font-size:0.7rem;">💤 WAKE LOCK</button>
+  </div>
+</header>
+
+<main>
+
+  <!-- SOURCE SELECTOR -->
+  <div class="card span-3" id="source-selector-card">
+    <div class="card-tag">Sorgente Musicale</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem;">
+      <div class="card-title" style="margin-bottom:0;">🎵 Scegli Sorgente</div>
+      <div class="source-tabs" id="source-tabs">
+        <button class="source-tab active" onclick="switchSource('spotify')" id="tab-spotify">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          Spotify
+        </button>
+        <button class="source-tab" onclick="switchSource('youtube')" id="tab-youtube">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+          YouTube
+        </button>
+        <button class="source-tab" onclick="switchSource('folder')" id="tab-folder">
+          📁 Cartella PC
+        </button>
+      </div>
+    </div>
+
+    <!-- SPOTIFY PANEL -->
+    <div class="source-panel active" id="panel-spotify">
+      <div id="spotify-connect-area">
+        <div class="alert alert-info" style="margin-bottom:1rem;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#1DB954" style="flex-shrink:0"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          <span>Richiede <strong>Spotify Premium</strong>. Ottieni il Client ID da <strong>developer.spotify.com/dashboard</strong> → crea app → copia Client ID → aggiungi Redirect URI uguale all'URL di questo file.</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+          <div>
+            <label>Client ID Spotify</label>
+            <input type="text" id="client-id" placeholder="es. 3abc1234def56789..." value="9446712044d542eca3dbdc04ad23982c">
+          </div>
+          <div>
+            <label>Redirect URI</label>
+            <input type="text" id="redirect-uri" placeholder="https://mrgp001.github.io/garage-gym-radio/Garage_Gym_Radio.html" value="https://mrgp001.github.io/garage-gym-radio/Garage_Gym_Radio.html">
+          </div>
+        </div>
+        <button class="btn btn-green" onclick="startSpotifyAuth()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+          ACCEDI CON SPOTIFY
+        </button>
+      </div>
+
+      <div id="spotify-connected-area" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+          <span class="pill pill-playing" id="spotify-user-pill"><span class="pill-dot"></span>—</span>
+          <button class="btn btn-ghost btn-sm" onclick="disconnectSpotify()">Disconnetti</button>
+        </div>
+        <div id="playlist-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.5rem;max-height:280px;overflow-y:auto;margin-bottom:1rem;">
+          <div class="empty-state">Caricamento playlist...</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+          <div>
+            <label style="margin-bottom:0.2rem;">Playlist attiva</label>
+            <div id="selected-playlist-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:var(--green);">Nessuna</div>
+          </div>
+          <div class="btn-row" style="margin-top:0;margin-left:auto;">
+            <button class="btn btn-green btn-sm" onclick="sourcePlay()">▶ PLAY</button>
+            <button class="btn btn-ghost btn-sm" onclick="sourcePause()">⏸ PAUSE</button>
+            <button class="btn btn-ghost btn-sm" onclick="spotifyNext()">⏭ NEXT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARTELLA PC PANEL -->
+    <div class="source-panel" id="panel-folder">
+      <div class="alert alert-info" style="margin-bottom:1rem;">
+        📁 Seleziona una cartella dal tuo PC. I file audio verranno riprodotti in sequenza nel browser. Formati supportati: MP3, WAV, OGG, M4A, FLAC.
+      </div>
+
+      <div style="display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:1rem;">
+        <div>
+          <label>Seleziona cartella</label>
+          <label class="folder-select-btn" id="folder-select-label">
+            <input type="file" id="folder-input" webkitdirectory multiple accept="audio/*" onchange="onFolderLoad(event)" style="display:none;">
+            📂 SCEGLI CARTELLA
+          </label>
+        </div>
+        <div style="flex:1;min-width:180px;">
+          <label>Modalità riproduzione</label>
+          <select id="folder-mode" style="margin-bottom:0;">
+            <option value="sequential">▶ In ordine</option>
+            <option value="shuffle">🔀 Casuale</option>
+            <option value="repeat">🔁 Ripeti tutto</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="folder-track-list" style="display:none;max-height:240px;overflow-y:auto;margin-bottom:1rem;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:3px;color:var(--muted);margin-bottom:0.5rem;text-transform:uppercase;">Brani caricati</div>
+        <div id="track-list-inner"></div>
+      </div>
+
+      <audio id="folder-audio-player" style="display:none;"></audio>
+
+      <div id="folder-now-playing" style="display:none;" class="now-playing-bar">
+        <div class="np-info">
+          <div class="np-title" id="folder-track-title">—</div>
+          <div class="np-sub" id="folder-track-sub">0 / 0</div>
+        </div>
+        <div style="display:flex;gap:0.5rem;align-items:center;">
+          <button class="btn btn-ghost btn-sm" onclick="folderPrev()">⏮</button>
+          <button class="btn btn-green btn-sm" id="folder-play-btn" onclick="folderTogglePlay()">▶ PLAY</button>
+          <button class="btn btn-ghost btn-sm" onclick="folderNext()">⏭</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- YOUTUBE PANEL -->
+    <div class="source-panel" id="panel-youtube">
+
+      <label>URL Video o Playlist YouTube</label>
+      <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;">
+        <input type="text" id="yt-url" placeholder="https://www.youtube.com/watch?v=... oppure playlist" style="margin-bottom:0;flex:1;">
+        <button class="btn btn-danger btn-sm" style="white-space:nowrap;" onclick="ytOpen()">▶ AVVIA</button>
+      </div>
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:1rem;letter-spacing:0.5px;">Una volta inserito il link, salvalo — la pianificazione lo avvierà e fermerà ogni giorno in automatico.</div>
+
+      <!-- inline player -->
+      <div id="yt-player-wrap" style="display:none;margin-bottom:0.75rem;border:1px solid var(--border);border-radius:2px;overflow:hidden;background:#000;">
+        <iframe id="yt-iframe"
+          style="display:block;width:100%;height:200px;border:none;"
+          allow="autoplay; encrypted-media"
+          allowfullscreen>
+        </iframe>
+      </div>
+
+      <div id="yt-controls" style="display:none;" class="btn-row">
+        <button class="btn btn-ghost btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="ytClose()">✕ RIMUOVI</button>
+        <span class="pill pill-playing" id="yt-status-pill" style="margin-left:auto;"><span class="pill-dot"></span>IN RIPRODUZIONE</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCHEDULA MUSICA -->
+  <div class="card">
+    <div class="card-tag">Pianificazione</div>
+    <div class="card-title">▶ Avvio Musica</div>
+
+    <label>Orario di avvio</label>
+    <input type="time" class="time-big" id="start-time" value="09:00">
+
+    <label>Volume iniziale (%)</label>
+    <input type="range" id="volume-in" min="0" max="100" value="70">
+    <span class="range-val" id="vol-in-display">70%</span>
+
+    <div class="btn-row">
+      <button class="btn btn-orange" onclick="scheduleStart()">⏱ PROGRAMMA</button>
+      <button class="btn btn-ghost btn-sm" onclick="sourcePlay()">▶ AVVIA ORA</button>
+      <button class="btn btn-ghost btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="cancelStart()">✕ ANNULLA</button>
+      <span class="pill pill-off" id="start-pill"><span class="pill-dot"></span>OFF</span>
+    </div>
+    <div style="font-size:0.72rem;color:var(--muted);margin-top:0.25rem;letter-spacing:1px;">🔁 Si ripete ogni giorno alla stessa ora finché non annulli</div>
+  </div>
+
+  <!-- STOP MUSICA -->
+  <div class="card">
+    <div class="card-tag">Pianificazione</div>
+    <div class="card-title">⏹ Stop Musica</div>
+
+    <label>Orario di stop</label>
+    <input type="time" class="time-big" id="stop-time" value="22:00">
+
+    <label>Dissolvenza in uscita (secondi)</label>
+    <input type="range" id="fade-dur" min="0" max="30" value="8">
+    <span class="range-val" id="fade-display">8s</span>
+
+    <div class="btn-row">
+      <button class="btn btn-orange" onclick="scheduleStop()">⏱ PROGRAMMA</button>
+      <button class="btn btn-ghost btn-sm" onclick="sourcePause()">⏹ STOP ORA</button>
+      <button class="btn btn-ghost btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="cancelStop()">✕ ANNULLA</button>
+      <span class="pill pill-off" id="stop-pill"><span class="pill-dot"></span>OFF</span>
+    </div>
+    <div style="font-size:0.72rem;color:var(--muted);margin-top:0.25rem;letter-spacing:1px;">🔁 Si ripete ogni giorno alla stessa ora finché non annulli</div>
+  </div>
+
+  <!-- ANNUNCI VOCALI -->
+  <div class="card">
+    <div class="card-tag">Annunci</div>
+    <div class="card-title">📢 Nuovo Annuncio</div>
+
+    <label>Orario</label>
+    <input type="time" id="ann-time" value="12:00">
+
+    <!-- TABS: Voce / File Audio -->
+    <div class="ann-tabs">
+      <div class="ann-tab active" onclick="switchAnnTab('tts')">🎙 Voce Sintetica</div>
+      <div class="ann-tab" onclick="switchAnnTab('file')">📁 File Audio</div>
+    </div>
+
+    <!-- TTS TAB -->
+    <div class="ann-tab-content active" id="tab-tts">
+      <label>Testo annuncio</label>
+      <textarea id="ann-text" placeholder="Es: Attenzione! Tra 15 minuti inizia la lezione di powerlifting in sala 2."></textarea>
+
+      <!-- VOICE ENGINE SELECTOR -->
+      <!-- BROWSER TTS -->
+      <div id="engine-browser">
+        <label>Voce italiana</label>
+        <select id="ann-voice" style="margin-bottom:0.5rem;"></select>
+        <div id="voice-hint" style="display:none;background:rgba(79,142,247,0.07);border:1px solid var(--orange);border-radius:1px;padding:0.6rem 0.8rem;font-size:0.78rem;color:var(--orange);margin-bottom:0.75rem;gap:0.5rem;align-items:flex-start;">
+          <span style="flex-shrink:0;">⚠</span>
+          <span>Nessuna voce italiana trovata. Su Windows: <strong>Impostazioni → Ora e lingua → Sintesi vocale</strong> → aggiungi "Italiano". Su Mac le voci italiane sono già incluse.</span>
+        </div>
+        <label>Velocità</label>
+        <input type="range" id="ann-rate" min="0.6" max="1.4" step="0.1" value="0.9">
+        <span class="range-val" id="ann-rate-display">Normale</span>
+      </div>
+
+      <!-- PREVIEW BOX -->
+      <div class="preview-box" id="preview-box">
+        <div class="preview-title">▶ ANTEPRIMA</div>
+        <div class="preview-text-display" id="preview-text-display">—</div>
+        <div class="preview-waveform" id="preview-waveform"></div>
+        <div class="preview-controls">
+          <button class="btn btn-orange btn-sm" id="preview-play-btn" onclick="togglePreview()">▶ PLAY</button>
+          <span class="preview-status" id="preview-status">PRONTO</span>
+          <button class="btn btn-ghost btn-sm" onclick="clearPreview()">✕</button>
+        </div>
+      </div>
+
+      <div class="btn-row" style="margin-top:0.75rem;">
+        <button class="btn btn-ghost btn-sm" onclick="preparePreview()">🔊 PROVA PRIMA</button>
+        <button class="btn btn-orange btn-sm" onclick="addAnn()">+ AGGIUNGI</button>
+      </div>
+    </div>
+
+    <!-- FILE AUDIO TAB -->
+    <div class="ann-tab-content" id="tab-file">
+      <label>Carica file audio</label>
+      <div class="file-drop-zone" id="ann-drop-zone">
+        <input type="file" id="ann-audio-file" accept="audio/*" onchange="onAnnFileLoad(event)">
+        <div class="file-drop-icon">🎵</div>
+        <div class="file-drop-label">Trascina qui o clicca</div>
+        <div class="file-drop-sub">MP3 · WAV · OGG · M4A · AAC</div>
+      </div>
+
+      <div class="audio-file-loaded" id="ann-file-loaded">
+        <span style="font-size:1.4rem;">🎵</span>
+        <div style="flex:1;min-width:0;">
+          <div class="audio-file-name" id="ann-file-name">—</div>
+          <div class="audio-file-size" id="ann-file-size">—</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="clearAnnFile()">✕</button>
+      </div>
+
+      <div class="audio-mini-player" id="ann-mini-player">
+        <audio id="ann-audio-preview" controls preload="auto"></audio>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-orange btn-sm" onclick="addAnn()">+ AGGIUNGI</button>
+      </div>
+    </div>
+
+    <div class="sep"></div>
+    <div style="display:flex;align-items:center;gap:0.75rem;">
+      <input type="checkbox" id="ann-repeat" style="accent-color:var(--orange);width:auto;">
+      <label for="ann-repeat" style="text-transform:none;letter-spacing:0;font-size:0.85rem;margin:0;color:var(--text);">Ripeti ogni giorno</label>
+    </div>
+  </div>
+
+  <!-- LISTA ANNUNCI -->
+  <div class="card span-2">
+    <div class="card-tag">Programmati</div>
+    <div class="card-title">📋 Annunci in Coda</div>
+    <div class="ann-list" id="ann-list">
+      <div class="empty-state">⚡ Nessun annuncio programmato<br>Aggiungili dal pannello a sinistra</div>
+    </div>
+  </div>
+
+  <!-- LOG -->
+  <div class="card span-3">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <div>
+        <div class="card-tag">Sistema</div>
+        <div class="card-title" style="margin-bottom:0;font-size:1.2rem;">📟 Activity Log</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="clearLog()">PULISCI LOG</button>
+    </div>
+    <div class="log-box" id="log"></div>
+  </div>
+
+  <!-- GUIDA -->
+  <div class="card span-3" id="guida-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;cursor:pointer;" onclick="toggleGuida()">
+      <div>
+        <div class="card-tag">Documentazione</div>
+        <div class="card-title" style="margin-bottom:0;">📖 Guida all'Uso</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="guida-toggle-btn">▼ ESPANDI</button>
+    </div>
+
+    <div id="guida-body" style="display:none;">
+
+      <!-- STEP 1 -->
+      <div class="guida-step">
+        <div class="guida-step-num">01</div>
+        <div class="guida-step-content">
+          <div class="guida-step-title">Connetti Spotify</div>
+          <div class="guida-step-text">
+            Clicca il banner verde <strong>"Connetti Spotify"</strong> in cima alla pagina. Inserisci il tuo <strong>Client ID</strong> ottenuto dal Spotify Developer Dashboard (<code>developer.spotify.com/dashboard</code>). Crea un'app, aggiungi come Redirect URI il percorso di questo file HTML, e incolla il Client ID nel campo apposito. Clicca <strong>"Accedi con Spotify"</strong>: verrai reindirizzato alla pagina di login Spotify e poi riportato qui automaticamente.
+          </div>
+          <div class="guida-note">⚠ Richiede account Spotify Premium. L'app Spotify deve essere aperta sul PC durante l'uso.</div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="guida-step">
+        <div class="guida-step-num">02</div>
+        <div class="guida-step-content">
+          <div class="guida-step-title">Seleziona una Playlist</div>
+          <div class="guida-step-text">
+            Dopo aver effettuato l'accesso, le tue playlist Spotify verranno caricate automaticamente. Clicca su una playlist per selezionarla (bordo verde = selezionata). Quella playlist verrà usata per l'avvio automatico e per i controlli manuali Play / Pause / Next.
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="guida-step">
+        <div class="guida-step-num">03</div>
+        <div class="guida-step-content">
+          <div class="guida-step-title">Programma Avvio e Stop</div>
+          <div class="guida-step-text">
+            Nel pannello <strong>"▶ Avvio Musica"</strong> imposta l'orario a cui vuoi che la musica parta e il volume iniziale, poi clicca <strong>"⏱ Programma"</strong>. Stessa cosa per <strong>"⏹ Stop Musica"</strong>: imposta l'orario e la durata della dissolvenza in uscita (da 0 a 30 secondi). Il sistema controlla l'orario ogni 5 secondi — la precisione è di ±5 secondi. Puoi anche avviare o fermare la musica manualmente in qualsiasi momento con i pulsanti <strong>"Avvia Ora"</strong> e <strong>"Stop Ora"</strong>.
+          </div>
+          <div class="guida-note">💡 Tieni la pagina aperta e il computer acceso perché la pianificazione funzioni.</div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="guida-step">
+        <div class="guida-step-num">04</div>
+        <div class="guida-step-content">
+          <div class="guida-step-title">Annunci Vocali — Voce Sintetica</div>
+          <div class="guida-step-text">
+            Nella sezione <strong>"📢 Annunci"</strong>, tab <strong>"Voce Sintetica"</strong>, scrivi il testo che vuoi venga letto ad alta voce. Imposta l'orario, scegli la voce dal menu e regola la velocità. Clicca <strong>"Prova Prima"</strong> per ascoltare l'anteprima con la waveform animata — puoi fare play e stop quante volte vuoi. Quando sei soddisfatto clicca <strong>"+ Aggiungi"</strong> per inserirlo in coda. Spunta <strong>"Ripeti ogni giorno"</strong> se vuoi che si ripeta automaticamente ogni giorno alla stessa ora.
+          </div>
+          <div class="guida-note">🎙 Durante un annuncio, il volume di Spotify si abbassa automaticamente a 20% e viene ripristinato al termine.</div>
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="guida-step" style="border-bottom:none;padding-bottom:0;margin-bottom:0;">
+        <div class="guida-step-num">05</div>
+        <div class="guida-step-content">
+          <div class="guida-step-title">Annunci Vocali — File Audio</div>
+          <div class="guida-step-text">
+            Nel tab <strong>"File Audio"</strong> puoi caricare un tuo file MP3, WAV, OGG o M4A (ad esempio una sigla, un jingle o un messaggio pre-registrato). Trascina il file nella zona tratteggiata oppure clicca per sfogliare. Apparirà un mini player per ascoltarlo in anteprima. Imposta l'orario e clicca <strong>"+ Aggiungi"</strong>. Il file viene mantenuto in memoria per tutta la sessione — se ricarichi la pagina dovrai ricaricare anche i file audio.
+          </div>
+          <div class="guida-note">📁 Il file non viene caricato su nessun server: rimane solo nel tuo browser.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ── STATE ────────────────────────────────────────────────────────────────────
+let spotifyToken = null;
+let spotifyUserId = null;
+let selectedPlaylistUri = null;
+let selectedPlaylistName = null;
+let spotifyDeviceId = null;
+let announcements = [];
+let startScheduled = false;
+let stopScheduled = false;
+let ticker = null;
+let voices = [];
+let npInterval = null;
+
+// ── CLOCK ────────────────────────────────────────────────────────────────────
+function updateClock() {
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('it-IT');
+  const giorni = ['DOMENICA','LUNEDÌ','MARTEDÌ','MERCOLEDÌ','GIOVEDÌ','VENERDÌ','SABATO'];
+  const mesi = ['GEN','FEB','MAR','APR','MAG','GIU','LUG','AGO','SET','OTT','NOV','DIC'];
+  const giorno = giorni[now.getDay()];
+  const num = now.getDate();
+  const mese = mesi[now.getMonth()];
+  document.getElementById('clock-date').textContent = `${giorno} · ${num} ${mese}`;
+}
+setInterval(updateClock, 500);
+updateClock();
+
+// ── LOG ──────────────────────────────────────────────────────────────────────
+function log(msg, type = 'info') {
+  const box = document.getElementById('log');
+  const ts = new Date().toLocaleTimeString('it-IT');
+  const line = document.createElement('div');
+  line.className = 'log-line';
+  line.innerHTML = `<span class="log-ts">${ts}</span><span class="log-${type}">${msg}</span>`;
+  box.prepend(line);
+}
+function clearLog() { document.getElementById('log').innerHTML = ''; }
+log('Sistema avviato — Garage Gym Melzo Music Control', 'ok');
+
+// ── SLIDERS ──────────────────────────────────────────────────────────────────
+document.getElementById('volume-in').addEventListener('input', e => {
+  document.getElementById('vol-in-display').textContent = e.target.value + '%';
+});
+document.getElementById('fade-dur').addEventListener('input', e => {
+  const v = +e.target.value;
+  document.getElementById('fade-display').textContent = v === 0 ? 'Nessuno' : v + 's';
+});
+
+// ── TTS VOICES ───────────────────────────────────────────────────────────────
+function loadVoices() {
+  voices = speechSynthesis.getVoices();
+  const sel = document.getElementById('ann-voice');
+  sel.innerHTML = '';
+
+  // Only Italian voices
+  const itVoices = voices.filter(v => v.lang.startsWith('it'));
+
+  if (itVoices.length === 0) {
+    const opt = document.createElement('option');
+    opt.value = -1;
+    opt.textContent = '⚠ Nessuna voce italiana trovata — vedi nota';
+    sel.appendChild(opt);
+    // Show hint
+    const hint = document.getElementById('voice-hint');
+    if (hint) hint.style.display = 'flex';
+    return;
+  }
+
+  // Score each voice: prefer natural/neural/enhanced names
+  const naturalKeywords = ['natural', 'neural', 'enhanced', 'premium', 'alice', 'google', 'wavenet', 'polyglot', 'microsoft', 'online'];
+  const scored = itVoices.map(v => {
+    const name = v.name.toLowerCase();
+    const score = naturalKeywords.reduce((s, kw) => name.includes(kw) ? s + 10 : s, 0)
+                + (v.localService ? 0 : 5); // online voices tend to be better
+    return { v, score };
+  }).sort((a, b) => b.score - a.score);
+
+  // Store all voices (with their original index) for doSpeak
+  scored.forEach(({ v }, i) => {
+    const origIdx = voices.indexOf(v);
+    const opt = document.createElement('option');
+    opt.value = origIdx;
+    const isNatural = naturalKeywords.some(kw => v.name.toLowerCase().includes(kw));
+    opt.textContent = `${isNatural ? '✦ ' : ''}${v.name}`;
+    sel.appendChild(opt);
+  });
+
+  // Hide hint if voices found
+  const hint = document.getElementById('voice-hint');
+  if (hint) hint.style.display = 'none';
+}
+speechSynthesis.onvoiceschanged = loadVoices;
+loadVoices();
+
+// ── SOURCE MANAGEMENT ────────────────────────────────────────────────────────
+let activeSource = 'spotify'; // 'spotify' | 'folder' | 'youtube'
+
+function switchSource(src) {
+  activeSource = src;
+  document.querySelectorAll('.source-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + src).classList.add('active');
+  document.querySelectorAll('.source-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + src).classList.add('active');
+  log(`Sorgente cambiata: ${src.toUpperCase()}`, 'info');
+}
+
+function sourcePlay() {
+  if (activeSource === 'spotify') spotifyPlay();
+  else if (activeSource === 'folder') folderPlay();
+  else if (activeSource === 'youtube') ytPlay();
+}
+
+function sourcePause() {
+  if (activeSource === 'spotify') spotifyPause();
+  else if (activeSource === 'folder') folderPause();
+  else if (activeSource === 'youtube') ytPause();
+}
+
+// ── SPOTIFY PKCE ─────────────────────────────────────────────────────────────
+async function generateCodeVerifier() {
+  const array = new Uint8Array(64);
+  crypto.getRandomValues(array);
+  return btoa(String.fromCharCode(...array)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+
+async function generateCodeChallenge(verifier) {
+  const data = new TextEncoder().encode(verifier);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return btoa(String.fromCharCode(...new Uint8Array(digest))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+}
+
+async function startSpotifyAuth() {
+  const clientId = document.getElementById('client-id').value.trim();
+  const redirectUri = document.getElementById('redirect-uri').value.trim();
+  if (!clientId) { log('Inserisci il Client ID!', 'warn'); return; }
+  if (!redirectUri) { log('Inserisci il Redirect URI!', 'warn'); return; }
+  localStorage.setItem('gg_client_id', clientId);
+  localStorage.setItem('gg_redirect_uri', redirectUri);
+  const verifier = await generateCodeVerifier();
+  const challenge = await generateCodeChallenge(verifier);
+  localStorage.setItem('gg_pkce_verifier', verifier);
+  const scopes = 'streaming user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-read-private playlist-read-collaborative user-read-email user-read-private';
+  const params = new URLSearchParams({
+    client_id: clientId,
+    response_type: 'code',
+    redirect_uri: redirectUri,
+    scope: scopes,
+    code_challenge_method: 'S256',
+    code_challenge: challenge,
+    show_dialog: 'true'
+  });
+  window.location.href = 'https://accounts.spotify.com/authorize?' + params.toString();
+}
+
+async function handleSpotifyCallback() {
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const error = params.get('error');
+  if (error) { log('Spotify: accesso negato — ' + error, 'err'); window.history.replaceState({}, document.title, window.location.pathname); return; }
+  if (!code) return;
+  const clientId = localStorage.getItem('gg_client_id');
+  const redirectUri = localStorage.getItem('gg_redirect_uri');
+  const verifier = localStorage.getItem('gg_pkce_verifier');
+  if (!clientId || !verifier) { log('Errore PKCE: riprova login', 'err'); window.history.replaceState({}, document.title, window.location.pathname); return; }
+  log('Connessione a Spotify...', 'info');
+  try {
+    const res = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ grant_type: 'authorization_code', code, redirect_uri: redirectUri, client_id: clientId, code_verifier: verifier }).toString()
+    });
+    const data = await res.json();
+    if (data.access_token) {
+      spotifyToken = data.access_token;
+      localStorage.setItem('gg_token', data.access_token);
+      if (data.refresh_token) localStorage.setItem('gg_refresh_token', data.refresh_token);
+      if (data.expires_in) localStorage.setItem('gg_token_expiry', Date.now() + data.expires_in * 1000);
+      localStorage.removeItem('gg_pkce_verifier');
+      window.history.replaceState({}, document.title, window.location.pathname);
+      log('Spotify connesso ✓', 'ok');
+      initSpotify();
+    } else {
+      log('Errore: ' + (data.error_description || data.error), 'err');
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  } catch(e) { log('Errore rete: ' + e.message, 'err'); }
+}
+
+async function refreshSpotifyToken() {
+  const clientId = localStorage.getItem('gg_client_id');
+  const refreshToken = localStorage.getItem('gg_refresh_token');
+  if (!clientId || !refreshToken) return false;
+  try {
+    const res = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ grant_type: 'refresh_token', refresh_token: refreshToken, client_id: clientId }).toString()
+    });
+    const data = await res.json();
+    if (data.access_token) {
+      spotifyToken = data.access_token;
+      localStorage.setItem('gg_token', data.access_token);
+      if (data.refresh_token) localStorage.setItem('gg_refresh_token', data.refresh_token);
+      if (data.expires_in) localStorage.setItem('gg_token_expiry', Date.now() + data.expires_in * 1000);
+      log('Token rinnovato ✓', 'ok');
+      return true;
+    }
+  } catch(e) {}
+  return false;
+}
+
+function initSpotify() {
+  document.getElementById('spotify-connect-area').style.display = 'none';
+  document.getElementById('spotify-connected-area').style.display = 'block';
+  spotifyFetch('https://api.spotify.com/v1/me').then(data => {
+    if (!data) return;
+    spotifyUserId = data.id;
+    const name = data.display_name || data.id;
+    document.getElementById('spotify-user-pill').innerHTML = `<span class="pill-dot"></span>${name.toUpperCase()}`;
+    log(`Spotify connesso come ${name}`, 'ok');
+    loadPlaylists();
+    startNowPlayingPoll();
+  });
+}
+
+async function spotifyFetch(url, method = 'GET', body = null) {
+  if (!spotifyToken) return null;
+  try {
+    const opts = { method, headers: { 'Authorization': 'Bearer ' + spotifyToken, 'Content-Type': 'application/json' } };
+    if (body) opts.body = JSON.stringify(body);
+    const res = await fetch(url, opts);
+    if (res.status === 401) {
+      const refreshed = await refreshSpotifyToken();
+      if (refreshed) {
+        opts.headers['Authorization'] = 'Bearer ' + spotifyToken;
+        const res2 = await fetch(url, opts);
+        if ([200,202,204].includes(res2.status)) { try { return await res2.json(); } catch { return {}; } }
+      }
+      log('Sessione scaduta — riconnettiti', 'err'); disconnectSpotify(); return null;
+    }
+    if ([200,202,204].includes(res.status)) { try { return await res.json(); } catch { return {}; } }
+    return null;
+  } catch (e) { log('Errore Spotify: ' + e.message, 'err'); return null; }
+}
+
+async function loadPlaylists() {
+  const data = await spotifyFetch('https://api.spotify.com/v1/me/playlists?limit=50');
+  if (!data || !data.items) return;
+  const container = document.getElementById('playlist-list');
+  container.innerHTML = '';
+  data.items.forEach(pl => {
+    const img = pl.images && pl.images[0] ? pl.images[0].url : '';
+    const div = document.createElement('div');
+    div.className = 'playlist-item';
+    div.innerHTML = `
+      ${img ? `<img class="playlist-img" src="${img}" alt="">` : '<div class="playlist-img"></div>'}
+      <div><div class="playlist-name">${pl.name}</div><div class="playlist-count">${pl.tracks.total} brani</div></div>
+      <span class="playlist-check">✓</span>
+    `;
+    div.addEventListener('click', () => {
+      document.querySelectorAll('.playlist-item').forEach(i => i.classList.remove('selected'));
+      div.classList.add('selected');
+      selectedPlaylistUri = pl.uri;
+      selectedPlaylistName = pl.name;
+      document.getElementById('selected-playlist-name').textContent = pl.name;
+      log(`Playlist: ${pl.name}`, 'info');
+    });
+    container.appendChild(div);
+  });
+  log(`Caricate ${data.items.length} playlist`, 'ok');
+}
+
+async function getActiveDevice() {
+  const data = await spotifyFetch('https://api.spotify.com/v1/me/player/devices');
+  if (!data || !data.devices || !data.devices.length) return null;
+  const active = data.devices.find(d => d.is_active) || data.devices[0];
+  return active ? active.id : null;
+}
+
+async function spotifyPlay() {
+  const deviceId = await getActiveDevice();
+  if (!deviceId) { log('Nessun dispositivo Spotify attivo! Apri Spotify sul PC.', 'warn'); return; }
+  const body = {};
+  if (selectedPlaylistUri) body.context_uri = selectedPlaylistUri;
+  const vol = document.getElementById('volume-in').value;
+  await spotifyFetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${vol}&device_id=${deviceId}`, 'PUT');
+  await spotifyFetch(`https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`, 'PUT', body);
+  log(`▶ Spotify avviato${selectedPlaylistName ? ': ' + selectedPlaylistName : ''}`, 'ok');
+  setPill('start-pill', 'playing', '▶ PLAY');
+}
+
+async function spotifyPause() {
+  const fadeSec = +document.getElementById('fade-dur').value;
+  if (fadeSec > 0) {
+    const data = await spotifyFetch('https://api.spotify.com/v1/me/player');
+    const startVol = data && data.device ? data.device.volume_percent : 50;
+    const steps = 10;
+    let step = 0;
+    const fade = setInterval(async () => {
+      step++;
+      await spotifyFetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${Math.max(0, Math.round(startVol * (1 - step/steps)))}`, 'PUT');
+      if (step >= steps) {
+        clearInterval(fade);
+        await spotifyFetch('https://api.spotify.com/v1/me/player/pause', 'PUT');
+        log('⏹ Spotify fermato (dissolvenza)', 'warn');
+        setPill('start-pill', 'off', 'OFF');
+      }
+    }, (fadeSec * 1000) / steps);
+  } else {
+    await spotifyFetch('https://api.spotify.com/v1/me/player/pause', 'PUT');
+    log('⏹ Spotify fermato', 'warn');
+    setPill('start-pill', 'off', 'OFF');
+  }
+}
+
+async function spotifyNext() {
+  await spotifyFetch('https://api.spotify.com/v1/me/player/next', 'POST');
+  log('⏭ Brano successivo', 'info');
+}
+
+function disconnectSpotify() {
+  spotifyToken = null;
+  localStorage.removeItem('gg_token');
+  localStorage.removeItem('gg_refresh_token');
+  localStorage.removeItem('gg_token_expiry');
+  localStorage.removeItem('gg_pkce_verifier');
+  document.getElementById('spotify-connect-area').style.display = 'block';
+  document.getElementById('spotify-connected-area').style.display = 'none';
+  document.getElementById('np-header').style.display = 'none';
+  clearInterval(npInterval);
+  log('Spotify disconnesso', 'warn');
+}
+
+// ── NOW PLAYING POLL ─────────────────────────────────────────────────────────
+function startNowPlayingPoll() {
+  clearInterval(npInterval);
+  npInterval = setInterval(pollNowPlaying, 5000);
+  pollNowPlaying();
+}
+
+async function pollNowPlaying() {
+  if (!spotifyToken || activeSource !== 'spotify') return;
+  const data = await spotifyFetch('https://api.spotify.com/v1/me/player/currently-playing');
+  if (!data || !data.item) { document.getElementById('np-header').style.display = 'none'; return; }
+  const track = data.item;
+  const pct = Math.round((data.progress_ms / track.duration_ms) * 100);
+  document.getElementById('np-header').style.display = 'flex';
+  document.getElementById('np-name').textContent = track.name;
+  document.getElementById('np-artist').textContent = track.artists.map(a => a.name).join(', ');
+  document.getElementById('np-progress').style.width = pct + '%';
+  const bars = document.getElementById('bars');
+  data.is_playing ? bars.classList.remove('paused') : bars.classList.add('paused');
+}
+
+// ── CARTELLA PC ───────────────────────────────────────────────────────────────
+let folderTracks = [];
+let folderIndex = 0;
+let folderPlaying = false;
+
+function onFolderLoad(e) {
+  const files = Array.from(e.target.files).filter(f => f.type.startsWith('audio/'));
+  if (!files.length) { log('Nessun file audio trovato nella cartella', 'warn'); return; }
+  folderTracks = files;
+  folderIndex = 0;
+  renderTrackList();
+  document.getElementById('folder-track-list').style.display = 'block';
+  document.getElementById('folder-now-playing').style.display = 'flex';
+  loadFolderTrack(0);
+  log(`Cartella caricata: ${files.length} brani`, 'ok');
+}
+
+function renderTrackList() {
+  const inner = document.getElementById('track-list-inner');
+  inner.innerHTML = folderTracks.map((f, i) => `
+    <div class="track-item${i === folderIndex ? ' playing' : ''}" onclick="loadFolderTrack(${i})">
+      <span class="track-num">${i+1}</span>
+      <span class="track-name-item">${f.name.replace(/\.[^.]+$/, '')}</span>
+    </div>
+  `).join('');
+}
+
+function loadFolderTrack(idx) {
+  if (idx < 0 || idx >= folderTracks.length) return;
+  folderIndex = idx;
+  const player = document.getElementById('folder-audio-player');
+  const url = URL.createObjectURL(folderTracks[idx]);
+  player.src = url;
+  player.volume = document.getElementById('volume-in').value / 100;
+  document.getElementById('folder-track-title').textContent = folderTracks[idx].name.replace(/\.[^.]+$/, '');
+  document.getElementById('folder-track-sub').textContent = `${idx + 1} / ${folderTracks.length}`;
+  renderTrackList();
+
+  player.onended = () => {
+    const mode = document.getElementById('folder-mode').value;
+    if (mode === 'shuffle') folderNext();
+    else if (mode === 'repeat' || folderIndex < folderTracks.length - 1) folderNext();
+    else { folderPlaying = false; document.getElementById('folder-play-btn').textContent = '▶ PLAY'; }
+  };
+
+  if (folderPlaying) player.play().catch(() => {});
+}
+
+function folderPlay() {
+  if (!folderTracks.length) { log('Carica prima una cartella!', 'warn'); return; }
+  const player = document.getElementById('folder-audio-player');
+  player.volume = document.getElementById('volume-in').value / 100;
+  player.play().then(() => {
+    folderPlaying = true;
+    document.getElementById('folder-play-btn').textContent = '⏸ PAUSA';
+    setPill('start-pill', 'playing', '▶ PLAY');
+    log(`▶ Cartella avviata: ${folderTracks[folderIndex].name}`, 'ok');
+    // Update now-playing header
+    document.getElementById('np-header').style.display = 'flex';
+    document.getElementById('np-name').textContent = folderTracks[folderIndex].name.replace(/\.[^.]+$/, '');
+    document.getElementById('np-artist').textContent = 'Cartella PC';
+    document.getElementById('bars').classList.remove('paused');
+  }).catch(e => log('Errore riproduzione: ' + e.message, 'err'));
+}
+
+function folderPause() {
+  const player = document.getElementById('folder-audio-player');
+  const fadeSec = +document.getElementById('fade-dur').value;
+  if (fadeSec > 0) {
+    const startVol = player.volume;
+    const steps = 20;
+    let step = 0;
+    const fade = setInterval(() => {
+      step++;
+      player.volume = Math.max(0, startVol * (1 - step / steps));
+      if (step >= steps) {
+        clearInterval(fade);
+        player.pause();
+        player.volume = startVol;
+        folderPlaying = false;
+        document.getElementById('folder-play-btn').textContent = '▶ PLAY';
+        setPill('start-pill', 'off', 'OFF');
+        log('⏹ Cartella fermata (dissolvenza)', 'warn');
+      }
+    }, (fadeSec * 1000) / steps);
+  } else {
+    player.pause();
+    folderPlaying = false;
+    document.getElementById('folder-play-btn').textContent = '▶ PLAY';
+    setPill('start-pill', 'off', 'OFF');
+    log('⏹ Cartella fermata', 'warn');
+  }
+}
+
+function folderTogglePlay() {
+  if (folderPlaying) folderPause(); else folderPlay();
+}
+
+function folderNext() {
+  const mode = document.getElementById('folder-mode').value;
+  let next;
+  if (mode === 'shuffle') next = Math.floor(Math.random() * folderTracks.length);
+  else next = (folderIndex + 1) % folderTracks.length;
+  loadFolderTrack(next);
+  if (folderPlaying) document.getElementById('folder-audio-player').play().catch(() => {});
+}
+
+function folderPrev() {
+  loadFolderTrack((folderIndex - 1 + folderTracks.length) % folderTracks.length);
+  if (folderPlaying) document.getElementById('folder-audio-player').play().catch(() => {});
+}
+
+// ── YOUTUBE (iframe inline) ───────────────────────────────────────────────────
+let ytCurrentUrl = '';
+let ytLoaded = false;
+
+function ytBuildEmbedUrl(url) {
+  // Clean tracking params
+  url = url.replace(/[?&]si=[^&]*/g, '').replace(/[?&]start_radio=[^&]*/g, '').replace(/\?$|&$/g, '');
+  const plRaw = url.match(/[?&]list=([^&]+)/);
+  const vMatch = url.match(/(?:v=|youtu\.be\/)([^?&/]+)/);
+  const isRadio = plRaw && /^RD/.test(plRaw[1]);
+  const plMatch = !isRadio ? plRaw : null;
+  if (plMatch) return `https://www.youtube.com/embed/videoseries?list=${plMatch[1]}&autoplay=1&rel=0`;
+  if (vMatch)  return `https://www.youtube.com/embed/${vMatch[1]}?autoplay=1&rel=0`;
+  return null;
+}
+
+function ytOpen() {
+  const url = document.getElementById('yt-url').value.trim();
+  if (!url) { log('Inserisci un URL YouTube!', 'warn'); return; }
+  ytCurrentUrl = url;
+  ytLaunch();
+}
+
+function ytLaunch() {
+  if (!ytCurrentUrl) return;
+  const embedUrl = ytBuildEmbedUrl(ytCurrentUrl);
+  if (!embedUrl) { log('URL YouTube non valido', 'err'); return; }
+  const iframe = document.getElementById('yt-iframe');
+  iframe.src = embedUrl;
+  document.getElementById('yt-player-wrap').style.display = 'block';
+  document.getElementById('yt-controls').style.display = 'flex';
+  ytLoaded = true;
+  document.getElementById('np-header').style.display = 'flex';
+  document.getElementById('np-name').textContent = 'YouTube';
+  document.getElementById('np-artist').textContent = ytCurrentUrl.length > 55 ? ytCurrentUrl.substring(0, 55) + '…' : ytCurrentUrl;
+  document.getElementById('bars').classList.remove('paused');
+  setPill('start-pill', 'playing', '▶ PLAY');
+  log('▶ YouTube avviato', 'ok');
+}
+
+function ytClose() {
+  const iframe = document.getElementById('yt-iframe');
+  iframe.src = '';
+  ytLoaded = false;
+  document.getElementById('yt-player-wrap').style.display = 'none';
+  document.getElementById('yt-controls').style.display = 'none';
+  document.getElementById('np-header').style.display = 'none';
+  document.getElementById('bars').classList.add('paused');
+  setPill('start-pill', 'off', 'OFF');
+  log('⏹ YouTube fermato', 'warn');
+}
+
+function ytPlay()  { ytLaunch(); }
+function ytPause() { ytClose(); }
+
+// ── WAKE LOCK (impedisce sleep del PC/schermo) ────────────────────────────────
+let wakeLock = null;
+
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) {
+      wakeLock = await navigator.wakeLock.request('screen');
+      wakeLock.addEventListener('release', () => {
+        log('Wake lock rilasciato dal sistema', 'warn');
+        wakeLock = null;
+      });
+      log('🔆 Wake Lock attivo — lo schermo non andrà in sleep', 'ok');
+      document.getElementById('wakelock-btn').textContent = '🔆 SCHERMO ATTIVO';
+      document.getElementById('wakelock-btn').style.color = 'var(--green)';
+      document.getElementById('wakelock-btn').style.borderColor = 'var(--green)';
+    } else {
+      log('Wake Lock non supportato da questo browser (usa Chrome/Edge)', 'warn');
+    }
+  } catch(e) {
+    log('Wake Lock errore: ' + e.message, 'warn');
+  }
+}
+
+async function releaseWakeLock() {
+  if (wakeLock) {
+    await wakeLock.release();
+    wakeLock = null;
+    log('Wake Lock disattivato', 'warn');
+    document.getElementById('wakelock-btn').textContent = '💤 ATTIVA WAKE LOCK';
+    document.getElementById('wakelock-btn').style.color = '';
+    document.getElementById('wakelock-btn').style.borderColor = '';
+  }
+}
+
+function toggleWakeLock() {
+  if (wakeLock) releaseWakeLock(); else requestWakeLock();
+}
+
+// Re-acquire on visibility change (page comes back into focus)
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState === 'visible' && (startScheduled || stopScheduled || announcements.length > 0)) {
+    if (!wakeLock) {
+      await requestWakeLock();
+      log('🔄 Pagina tornata attiva — Wake Lock riattivato', 'info');
+    }
+  }
+});
+
+// ── SCHEDULING ───────────────────────────────────────────────────────────────
+function scheduleStart() {
+  const t = document.getElementById('start-time').value;
+  if (!t) return;
+  startScheduled = true;
+  setPill('start-pill', 'on', '⏱ ' + t);
+  log(`Avvio giornaliero programmato alle ${t} (${activeSource.toUpperCase()})`, 'ok');
+  ensureTicker();
+  requestWakeLock();
+}
+
+function cancelStart() {
+  startScheduled = false;
+  setPill('start-pill', 'off', 'OFF');
+  log('Avvio programmato annullato', 'warn');
+}
+
+function scheduleStop() {
+  const t = document.getElementById('stop-time').value;
+  if (!t) return;
+  stopScheduled = true;
+  setPill('stop-pill', 'on', '⏱ ' + t);
+  log(`Stop giornaliero programmato alle ${t}`, 'ok');
+  ensureTicker();
+}
+
+function cancelStop() {
+  stopScheduled = false;
+  setPill('stop-pill', 'off', 'OFF');
+  log('Stop programmato annullato', 'warn');
+}
+
+function ensureTicker() {
+  if (ticker) return;
+  ticker = setInterval(tick, 5000);
+  log('Pianificazione attiva (controllo ogni 5s)', 'info');
+}
+
+function tick() {
+  const now = new Date();
+  const hhmm = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+  if (now.getSeconds() > 10) return;
+
+  // Repeat every day — do NOT clear startScheduled / stopScheduled
+  if (startScheduled && document.getElementById('start-time').value === hhmm) {
+    sourcePlay();
+    log(`⏱ Avvio automatico ore ${hhmm}`, 'ok');
+  }
+  if (stopScheduled && document.getElementById('stop-time').value === hhmm) {
+    sourcePause();
+    log(`⏱ Stop automatico ore ${hhmm}`, 'warn');
+  }
+
+  announcements.forEach(ann => {
+    if (ann.time === hhmm && !ann.done) {
+      ann.done = true;
+      fireAnnouncement(ann);
+      if (ann.repeat) setTimeout(() => { ann.done = false; }, 65000);
+    }
+  });
+}
+
+// ── ANNOUNCEMENTS ────────────────────────────────────────────────────────────
+let annMode = 'tts'; // 'tts' | 'file'
+let annAudioBuffer = null;
+let annAudioFileName = null;
+let annAudioFileData = null; // base64 or objectURL for playback
+let previewUtterance = null;
+let previewSpeaking = false;
+let previewWaveIntervals = [];
+
+function switchAnnTab(tab) {
+  annMode = tab;
+  document.querySelectorAll('.ann-tab').forEach((t, i) => {
+    t.classList.toggle('active', (i === 0 && tab === 'tts') || (i === 1 && tab === 'file'));
+  });
+  document.getElementById('tab-tts').classList.toggle('active', tab === 'tts');
+  document.getElementById('tab-file').classList.toggle('active', tab === 'file');
+}
+
+// ── Rate slider ───────────────────────────────────────────────────────────────
+document.getElementById('ann-rate').addEventListener('input', e => {
+  const v = +e.target.value;
+  const labels = { 0.6: 'Lento', 0.7: 'Lento', 0.8: 'Moderato', 0.9: 'Normale', 1.0: 'Normale', 1.1: 'Veloce', 1.2: 'Veloce', 1.3: 'Rapido', 1.4: 'Rapido' };
+  document.getElementById('ann-rate-display').textContent = labels[v] || v + 'x';
+});
+
+// ── PREVIEW (TTS) ─────────────────────────────────────────────────────────────
+function buildWaveform() {
+  const wv = document.getElementById('preview-waveform');
+  wv.innerHTML = '';
+  for (let i = 0; i < 28; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'wv-bar';
+    bar.style.height = (Math.random() * 24 + 4) + 'px';
+    wv.appendChild(bar);
+  }
+}
+
+function preparePreview() {
+  const text = document.getElementById('ann-text').value.trim();
+  if (!text) { log('Scrivi un testo prima di provare!', 'warn'); return; }
+  speechSynthesis.cancel();
+  stopPreviewAnimation();
+
+  document.getElementById('preview-text-display').textContent = text;
+  buildWaveform();
+  document.getElementById('preview-box').classList.add('visible');
+  document.getElementById('preview-status').textContent = 'PRONTO — clicca PLAY';
+  document.getElementById('preview-play-btn').textContent = '▶ PLAY';
+  previewSpeaking = false;
+  log('Anteprima pronta — premi PLAY per ascoltare', 'info');
+}
+
+function togglePreview() {
+  if (previewSpeaking) {
+    speechSynthesis.cancel();
+    stopPreviewAnimation();
+    document.getElementById('preview-play-btn').textContent = '▶ PLAY';
+    document.getElementById('preview-status').textContent = 'FERMATO';
+    previewSpeaking = false;
+  } else {
+    const text = document.getElementById('ann-text').value.trim();
+    if (!text) return;
+    const vi = +document.getElementById('ann-voice').value;
+    const rate = +document.getElementById('ann-rate').value;
+
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.rate = rate;
+    if (voices[vi]) utt.voice = voices[vi];
+
+    utt.onstart = () => {
+      previewSpeaking = true;
+      document.getElementById('preview-play-btn').textContent = '⏹ STOP';
+      document.getElementById('preview-status').textContent = 'IN RIPRODUZIONE...';
+      startPreviewAnimation();
+    };
+
+    utt.onend = () => {
+      previewSpeaking = false;
+      stopPreviewAnimation();
+      document.getElementById('preview-play-btn').textContent = '▶ REPLAY';
+      document.getElementById('preview-status').textContent = '✓ COMPLETATO';
+    };
+
+    utt.onerror = () => {
+      previewSpeaking = false;
+      stopPreviewAnimation();
+      document.getElementById('preview-status').textContent = 'ERRORE';
+    };
+
+    speechSynthesis.speak(utt);
+  }
+}
+
+function startPreviewAnimation() {
+  stopPreviewAnimation();
+  const bars = document.querySelectorAll('#preview-waveform .wv-bar');
+  bars.forEach((bar, i) => {
+    bar.classList.add('speaking');
+    bar.style.animationDelay = (i * 0.04) + 's';
+    bar.style.animationDuration = (0.3 + Math.random() * 0.4) + 's';
+  });
+}
+
+function stopPreviewAnimation() {
+  document.querySelectorAll('#preview-waveform .wv-bar').forEach(bar => {
+    bar.classList.remove('speaking');
+    bar.style.animationDelay = '';
+    bar.style.animationDuration = '';
+  });
+}
+
+function clearPreview() {
+  speechSynthesis.cancel();
+  stopPreviewAnimation();
+  previewSpeaking = false;
+  document.getElementById('preview-box').classList.remove('visible');
+}
+
+// ── FILE AUDIO ────────────────────────────────────────────────────────────────
+const dropZone = document.getElementById('ann-drop-zone');
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('audio/')) loadAnnFile(file);
+});
+
+function onAnnFileLoad(e) {
+  const file = e.target.files[0];
+  if (file) loadAnnFile(file);
+}
+
+function loadAnnFile(file) {
+  annAudioFileName = file.name;
+  const url = URL.createObjectURL(file);
+
+  // Show loaded state
+  document.getElementById('ann-file-loaded').classList.add('visible');
+  document.getElementById('ann-file-name').textContent = file.name;
+  document.getElementById('ann-file-size').textContent = formatFileSize(file.size);
+
+  // Mini player
+  const player = document.getElementById('ann-audio-preview');
+  player.src = url;
+  document.getElementById('ann-mini-player').classList.add('visible');
+
+  // Store as base64 for playback in announcements
+  const reader = new FileReader();
+  reader.onload = ev => { annAudioFileData = ev.target.result; };
+  reader.readAsDataURL(file);
+
+  log(`File audio caricato: ${file.name}`, 'ok');
+}
+
+function clearAnnFile() {
+  annAudioFileName = null;
+  annAudioFileData = null;
+  document.getElementById('ann-file-loaded').classList.remove('visible');
+  document.getElementById('ann-mini-player').classList.remove('visible');
+  document.getElementById('ann-audio-preview').src = '';
+  document.getElementById('ann-audio-file').value = '';
+  log('File audio rimosso', 'warn');
+}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+}
+
+// ── ADD ANNOUNCEMENT ──────────────────────────────────────────────────────────
+function addAnn() {
+  const time = document.getElementById('ann-time').value;
+  const repeat = document.getElementById('ann-repeat').checked;
+
+  if (annMode === 'tts') {
+    const text = document.getElementById('ann-text').value.trim();
+    if (!time || !text) { log('Compila orario e testo!', 'warn'); return; }
+    const vi = +document.getElementById('ann-voice').value;
+    const rate = +document.getElementById('ann-rate').value;
+    announcements.push({ id: Date.now(), time, text, repeat, voiceIdx: vi, rate, type: 'tts', done: false });
+    clearPreview();
+    log(`Annuncio vocale aggiunto alle ${time}`, 'ok');
+    document.getElementById('ann-text').value = '';
+  } else {
+    if (!time) { log('Seleziona un orario!', 'warn'); return; }
+    if (!annAudioFileData) { log('Carica un file audio prima!', 'warn'); return; }
+    announcements.push({ id: Date.now(), time, fileName: annAudioFileName, audioData: annAudioFileData, repeat, type: 'file', done: false });
+    log(`Annuncio audio (${annAudioFileName}) aggiunto alle ${time}`, 'ok');
+  }
+
+  announcements.sort((a, b) => a.time.localeCompare(b.time));
+  renderAnnouncements();
+  ensureTicker();
+}
+
+function removeAnn(id) {
+  announcements = announcements.filter(a => a.id !== id);
+  renderAnnouncements();
+  log('Annuncio rimosso', 'warn');
+}
+
+function renderAnnouncements() {
+  const el = document.getElementById('ann-list');
+  if (!announcements.length) {
+    el.innerHTML = '<div class="empty-state">⚡ Nessun annuncio programmato<br>Aggiungili dal pannello a sinistra</div>';
+    return;
+  }
+  el.innerHTML = announcements.map(a => {
+    const typeIcon = a.type === 'file' ? '🎵' : '🎙';
+    const typeLabel = a.type === 'file' ? 'File audio' : 'Voce sintetica';
+    const desc = (a.type === 'file') ? a.fileName : a.text;
+    return `
+    <div class="ann-item ${a.repeat ? 'repeat' : ''} ${a.done && !a.repeat ? 'done-once' : ''}">
+      <div class="ann-time-badge">${a.time}</div>
+      <div class="ann-body">
+        <div class="ann-text-display">${typeIcon} ${desc}</div>
+        <div class="ann-meta">${a.repeat ? '🔁 Giornaliero' : '1× Una volta'} · ${typeLabel}${a.done ? ' · ✓ Eseguito' : ''}</div>
+      </div>
+      <div style="display:flex;gap:0.4rem;flex-shrink:0;">
+        <button class="btn btn-ghost btn-sm" onclick="testAnn(${a.id})">🔊</button>
+        <button class="btn btn-danger btn-sm" onclick="removeAnn(${a.id})">✕</button>
+      </div>
+    </div>
+  `}).join('');
+}
+
+function fireAnnouncement(ann) {
+  const doAction = () => {
+    if (ann.type === 'file' && ann.audioData) {
+      const audio = new Audio(ann.audioData);
+      audio.play();
+      log(`📢 File audio: "${ann.fileName}"`, 'ok');
+    } else if (ann.type === 'tts') {
+      doSpeak(ann.text, ann.voiceIdx, ann.rate, () => {
+        if (spotifyToken) {
+          spotifyFetch('https://api.spotify.com/v1/me/player').then(data => {
+            const origVol = data && data.device ? data.device.volume_percent : 70;
+            setTimeout(() => spotifyFetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${origVol}`, 'PUT'), 500);
+          });
+        }
+      });
+      log(`📢 Annuncio: "${ann.text.substring(0, 50)}${ann.text.length > 50 ? '…' : ''}"`, 'ok');
+    }
+  };
+
+  // Duck Spotify volume during announcement
+  if (spotifyToken) {
+    spotifyFetch('https://api.spotify.com/v1/me/player').then(data => {
+      const origVol = data && data.device ? data.device.volume_percent : 70;
+      spotifyFetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=20`, 'PUT');
+      setTimeout(doAction, 600);
+    });
+  } else {
+    doAction();
+  }
+}
+
+function doSpeak(text, voiceIdx, rate = 0.9, onEnd = null) {
+  speechSynthesis.cancel();
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.rate = rate || 0.9;
+  utt.pitch = 1;
+  if (voices[voiceIdx]) utt.voice = voices[voiceIdx];
+  if (onEnd) utt.onend = onEnd;
+  speechSynthesis.speak(utt);
+}
+
+function testAnn(id) {
+  const ann = announcements.find(a => a.id === id);
+  if (!ann) return;
+  if (ann.type === 'file' && ann.audioData) {
+    new Audio(ann.audioData).play();
+    log(`Test audio: ${ann.fileName}`, 'info');
+  } else if (ann.type === 'tts') {
+    doSpeak(ann.text, ann.voiceIdx, ann.rate);
+    log(`Test TTS: ${ann.time}`, 'info');
+  }
+}
+
+function previewAnn() { preparePreview(); }
+
+// ── GUIDA ────────────────────────────────────────────────────────────────────
+function toggleGuida() {
+  const body = document.getElementById('guida-body');
+  const btn = document.getElementById('guida-toggle-btn');
+  const open = body.style.display === 'block';
+  body.style.display = open ? 'none' : 'block';
+  btn.textContent = open ? '▼ ESPANDI' : '▲ CHIUDI';
+}
+
+// ── PILL HELPER ──────────────────────────────────────────────────────────────
+function setPill(id, state, label) {
+  const el = document.getElementById(id);
+  el.className = 'pill pill-' + state;
+  el.innerHTML = `<span class="pill-dot"></span>${label}`;
+}
+
+// ── INIT: Check token in URL hash or localStorage ────────────────────────────
+window.addEventListener('load', () => {
+  // Pre-fill redirect URI
+  const ruEl = document.getElementById('redirect-uri');
+  if (ruEl && !ruEl.value) ruEl.value = window.location.href.split('?')[0].split('#')[0];
+
+  // Handle Spotify PKCE callback
+  if (window.location.search.includes('code=') || window.location.search.includes('error=')) {
+    handleSpotifyCallback();
+  } else {
+    const saved = localStorage.getItem('gg_token');
+    const expiry = localStorage.getItem('gg_token_expiry');
+    if (saved && expiry && Date.now() < parseInt(expiry)) {
+      spotifyToken = saved;
+      log('Token ripristinato ✓', 'info');
+      initSpotify();
+    } else if (localStorage.getItem('gg_refresh_token')) {
+      refreshSpotifyToken().then(ok => { if (ok) initSpotify(); });
+    }
+  }
+});
+</script>
+</body>
+</html>
