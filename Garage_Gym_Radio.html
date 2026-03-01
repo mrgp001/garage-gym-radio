@@ -103,7 +103,9 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    flex: 1;
+    margin-left: auto;
+    width: 280px;
+    flex-shrink: 0;
     padding: 0.5rem 1rem;
     background: var(--steel);
     border: 1px solid var(--border);
@@ -848,7 +850,7 @@
 <header>
   <div class="logo-block">
     <div class="logo-gym">GARAGE<span>GYM</span></div>
-    <div class="logo-sub" style="font-family:'Barlow Condensed',sans-serif;font-size:2.2rem;letter-spacing:4px;color:var(--orange);font-weight:900;line-height:1;text-transform:uppercase;">RADIO</div>
+    <div class="logo-sub" style="font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;letter-spacing:3px;color:var(--muted);font-weight:700;text-transform:uppercase;">RADIO</div>
   </div>
   <div class="header-right">
     <div style="display:flex;flex-direction:column;align-items:center;gap:0.1rem;">
@@ -1110,11 +1112,6 @@
           <option value="0">Domenica</option>
         </select>
       </div>
-    </div>
-
-    <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
-      <input type="checkbox" id="ann-repeat" style="accent-color:var(--orange);width:auto;">
-      <label for="ann-repeat" style="text-transform:none;letter-spacing:0;font-size:0.85rem;margin:0;color:var(--text);">Ripeti ogni giorno</label>
     </div>
 
     <div class="btn-row" style="margin-top:0.5rem;">
@@ -2102,11 +2099,12 @@ function formatFileSize(bytes) {
 // ── ADD ANNOUNCEMENT (file-only simplified) ──────────────────────────────────
 function addAnnFile() {
   const time = document.getElementById('ann-time').value;
-  const repeat = document.getElementById('ann-repeat').checked;
+  const dayVal = document.getElementById('ann-day').value;
+  const repeat = (dayVal === 'every');
   if (!time) { log('Seleziona un orario!', 'warn'); return; }
   if (!annAudioFileData) { log('Carica un file audio prima!', 'warn'); return; }
   announcements.push({ id: Date.now(), time, fileName: annAudioFileName, audioData: annAudioFileData, repeat, type: 'file', done: false });
-  log(`Annuncio audio (${annAudioFileName}) aggiunto alle ${time}`, 'ok');
+  log(`Annuncio audio (${annAudioFileName}) aggiunto alle ${time}${repeat ? ' · ogni giorno' : ''}`, 'ok');
   announcements.sort((a, b) => a.time.localeCompare(b.time));
   renderAnnouncements();
   ensureTicker();
