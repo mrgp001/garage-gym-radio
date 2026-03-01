@@ -781,8 +781,6 @@
   .np-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--green); }
   .np-sub { font-size: 0.75rem; color: var(--muted); }
 
-  /* YouTube danger btn */
-  .btn-danger { background: #FF0000; color: #fff; }
 
   /* ── GUIDA ── */
   .guida-step {
@@ -883,10 +881,7 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
           Spotify
         </button>
-        <button class="source-tab" onclick="switchSource('youtube')" id="tab-youtube">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-          YouTube
-        </button>
+
         <button class="source-tab" onclick="switchSource('folder')" id="tab-folder">
           📁 Cartella PC
         </button>
@@ -918,44 +913,56 @@
 
       <div id="spotify-connected-area" style="display:none;">
 
-        <!-- Barra utente + controlli -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:0.75rem;">
-          <span class="pill pill-playing" id="spotify-user-pill"><span class="pill-dot"></span>—</span>
-          <div style="display:flex;gap:0.5rem;align-items:center;">
-            <button class="btn btn-green btn-sm" onclick="sourcePlay()">▶ PLAY</button>
-            <button class="btn btn-ghost btn-sm" onclick="sourcePause()">⏸ PAUSE</button>
-            <button class="btn btn-ghost btn-sm" onclick="spotifyNext()">⏭ NEXT</button>
-            <button class="btn btn-ghost btn-sm" onclick="disconnectSpotify()">✕ DISCONNETTI</button>
-          </div>
-        </div>
+        <!-- Player principale stile Spotify -->
+        <div style="display:flex;gap:1.5rem;align-items:flex-start;flex-wrap:wrap;margin-bottom:1.5rem;">
 
-        <!-- Brano in riproduzione -->
-        <div id="spotify-now-playing-bar" style="display:none;background:var(--steel);border:1px solid var(--green);border-left:4px solid var(--green);padding:0.75rem 1rem;border-radius:1px;margin-bottom:1.2rem;display:flex;align-items:center;gap:1rem;">
-          <img id="sp-track-img" src="" style="width:48px;height:48px;border-radius:2px;object-fit:cover;background:var(--plate);" alt="">
-          <div style="flex:1;min-width:0;">
-            <div id="sp-track-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:var(--green);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">—</div>
-            <div id="sp-track-artist" style="font-size:0.78rem;color:var(--muted);">—</div>
+          <!-- Copertina grande -->
+          <div style="flex-shrink:0;">
+            <img id="sp-cover" src="" alt="" style="width:140px;height:140px;border-radius:4px;object-fit:cover;background:var(--plate);display:block;">
           </div>
-          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem;min-width:80px;">
-            <div id="sp-track-time" style="font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;color:var(--muted);">0:00 / 0:00</div>
-            <div style="width:80px;height:3px;background:var(--plate);border-radius:2px;overflow:hidden;">
-              <div id="sp-track-progress" style="height:100%;background:var(--green);width:0%;transition:width 1s linear;"></div>
+
+          <!-- Info + controlli -->
+          <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:0.75rem;">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:0.5rem;">
+              <span class="pill pill-playing" id="spotify-user-pill"><span class="pill-dot"></span>—</span>
+              <button class="btn btn-ghost btn-sm" onclick="disconnectSpotify()" style="font-size:0.7rem;">✕ ESCI</button>
+            </div>
+            <div>
+              <div id="sp-track-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.6rem;letter-spacing:1px;color:var(--text);line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">—</div>
+              <div id="sp-track-artist" style="font-size:0.85rem;color:var(--muted);margin-top:0.2rem;">—</div>
+            </div>
+            <!-- Progress bar -->
+            <div>
+              <div style="height:4px;background:var(--plate);border-radius:2px;overflow:hidden;margin-bottom:0.3rem;">
+                <div id="sp-progress" style="height:100%;background:var(--green);width:0%;transition:width 1s linear;border-radius:2px;"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span id="sp-time-curr" style="font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;color:var(--muted);">0:00</span>
+                <span id="sp-time-tot" style="font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;color:var(--muted);">0:00</span>
+              </div>
+            </div>
+            <!-- Controlli -->
+            <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;">
+              <button class="btn btn-ghost btn-sm" onclick="spotifyPrev()" title="Precedente">⏮</button>
+              <button class="btn btn-green" onclick="sourcePlay()" style="padding:0.5rem 1.2rem;">▶ PLAY</button>
+              <button class="btn btn-ghost btn-sm" onclick="sourcePause()">⏸</button>
+              <button class="btn btn-ghost btn-sm" onclick="spotifyNext()">⏭</button>
+              <!-- Volume -->
+              <input type="range" id="sp-volume" min="0" max="100" value="70" style="width:80px;accent-color:var(--green);" oninput="setSpotifyVolume(this.value)" title="Volume">
             </div>
           </div>
         </div>
 
-        <!-- Playlist attiva -->
-        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">Playlist attiva:</div>
-          <div id="selected-playlist-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:var(--green);">Nessuna selezionata</div>
-          <button class="btn btn-ghost btn-sm" onclick="togglePlaylistPanel()" id="playlist-toggle-btn" style="margin-left:auto;">▼ SCEGLI PLAYLIST</button>
-        </div>
-
-        <!-- Griglia playlist (collassabile) -->
-        <div id="playlist-panel" style="display:none;">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:3px;color:var(--muted);margin-bottom:0.75rem;text-transform:uppercase;">Le tue playlist</div>
-          <div id="playlist-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.5rem;max-height:320px;overflow-y:auto;">
-            <div class="empty-state">Caricamento...</div>
+        <!-- Playlist -->
+        <div style="border-top:1px solid var(--border);padding-top:1.2rem;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">Playlist attiva: <span id="selected-playlist-name" style="color:var(--green);">Nessuna</span></div>
+            <button class="btn btn-ghost btn-sm" onclick="togglePlaylistPanel()" id="playlist-toggle-btn">▼ SCEGLI</button>
+          </div>
+          <div id="playlist-panel" style="display:none;">
+            <div id="playlist-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:0.5rem;max-height:300px;overflow-y:auto;">
+              <div class="empty-state">Caricamento...</div>
+            </div>
           </div>
         </div>
 
@@ -1006,31 +1013,7 @@
       </div>
     </div>
 
-    <!-- YOUTUBE PANEL -->
-    <div class="source-panel" id="panel-youtube">
 
-      <label>URL Video o Playlist YouTube</label>
-      <div style="display:flex;gap:0.75rem;margin-bottom:0.75rem;">
-        <input type="text" id="yt-url" placeholder="https://www.youtube.com/watch?v=... oppure playlist" style="margin-bottom:0;flex:1;">
-        <button class="btn btn-danger btn-sm" style="white-space:nowrap;" onclick="ytOpen()">▶ AVVIA</button>
-      </div>
-      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:1rem;letter-spacing:0.5px;">Una volta inserito il link, salvalo — la pianificazione lo avvierà e fermerà ogni giorno in automatico.</div>
-
-      <!-- inline player -->
-      <div id="yt-player-wrap" style="display:none;margin-bottom:0.75rem;border:1px solid var(--border);border-radius:2px;overflow:hidden;background:#000;">
-        <iframe id="yt-iframe"
-          style="display:block;width:100%;height:200px;border:none;"
-          allow="autoplay; encrypted-media"
-          allowfullscreen>
-        </iframe>
-      </div>
-
-      <div id="yt-controls" style="display:none;" class="btn-row">
-        <button class="btn btn-ghost btn-sm" style="color:var(--danger);border-color:var(--danger);" onclick="ytClose()">✕ RIMUOVI</button>
-        <span class="pill pill-playing" id="yt-status-pill" style="margin-left:auto;"><span class="pill-dot"></span>IN RIPRODUZIONE</span>
-      </div>
-
-    </div>
   </div>
 
   <!-- SCHEDULA MUSICA -->
@@ -1354,7 +1337,7 @@ speechSynthesis.onvoiceschanged = loadVoices;
 loadVoices();
 
 // ── SOURCE MANAGEMENT ────────────────────────────────────────────────────────
-let activeSource = 'spotify'; // 'spotify' | 'folder' | 'youtube'
+let activeSource = 'spotify'; // 'spotify' | 'folder'
 
 function switchSource(src) {
   activeSource = src;
@@ -1368,13 +1351,11 @@ function switchSource(src) {
 function sourcePlay() {
   if (activeSource === 'spotify') spotifyPlay();
   else if (activeSource === 'folder') folderPlay();
-  else if (activeSource === 'youtube') ytPlay();
 }
 
 function sourcePause() {
   if (activeSource === 'spotify') spotifyPause();
   else if (activeSource === 'folder') folderPause();
-  else if (activeSource === 'youtube') ytPause();
 }
 
 // ── SPOTIFY PKCE ─────────────────────────────────────────────────────────────
@@ -1383,51 +1364,38 @@ async function generateCodeVerifier() {
   crypto.getRandomValues(array);
   return btoa(String.fromCharCode(...array)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
 }
-
 async function generateCodeChallenge(verifier) {
   const data = new TextEncoder().encode(verifier);
   const digest = await crypto.subtle.digest('SHA-256', data);
   return btoa(String.fromCharCode(...new Uint8Array(digest))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
 }
-
 async function startSpotifyAuth() {
   const clientId = document.getElementById('client-id').value.trim();
   const redirectUri = document.getElementById('redirect-uri').value.trim();
   if (!clientId) { log('Inserisci il Client ID!', 'warn'); return; }
-  if (!redirectUri) { log('Inserisci il Redirect URI!', 'warn'); return; }
   localStorage.setItem('gg_client_id', clientId);
   localStorage.setItem('gg_redirect_uri', redirectUri);
   const verifier = await generateCodeVerifier();
   const challenge = await generateCodeChallenge(verifier);
   localStorage.setItem('gg_pkce_verifier', verifier);
   const scopes = 'streaming user-read-playback-state user-modify-playback-state user-read-currently-playing playlist-read-private playlist-read-collaborative user-read-email user-read-private';
-  const params = new URLSearchParams({
-    client_id: clientId,
-    response_type: 'code',
-    redirect_uri: redirectUri,
-    scope: scopes,
-    code_challenge_method: 'S256',
-    code_challenge: challenge,
-    show_dialog: 'true'
-  });
-  window.location.href = 'https://accounts.spotify.com/authorize?' + params.toString();
+  const p = new URLSearchParams({ client_id: clientId, response_type: 'code', redirect_uri: redirectUri, scope: scopes, code_challenge_method: 'S256', code_challenge: challenge, show_dialog: 'true' });
+  window.location.href = 'https://accounts.spotify.com/authorize?' + p.toString();
 }
-
 async function handleSpotifyCallback() {
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code');
   const error = params.get('error');
-  if (error) { log('Spotify: accesso negato — ' + error, 'err'); window.history.replaceState({}, document.title, window.location.pathname); return; }
+  if (error) { log('Spotify: ' + error, 'err'); window.history.replaceState({}, document.title, window.location.pathname); return; }
   if (!code) return;
   const clientId = localStorage.getItem('gg_client_id');
   const redirectUri = localStorage.getItem('gg_redirect_uri');
   const verifier = localStorage.getItem('gg_pkce_verifier');
-  if (!clientId || !verifier) { log('Errore PKCE: riprova login', 'err'); window.history.replaceState({}, document.title, window.location.pathname); return; }
-  log('Connessione a Spotify...', 'info');
+  if (!clientId || !verifier) { log('Errore PKCE', 'err'); window.history.replaceState({}, document.title, window.location.pathname); return; }
+  log('Connessione...', 'info');
   try {
     const res = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({ grant_type: 'authorization_code', code, redirect_uri: redirectUri, client_id: clientId, code_verifier: verifier }).toString()
     });
     const data = await res.json();
@@ -1440,21 +1408,16 @@ async function handleSpotifyCallback() {
       window.history.replaceState({}, document.title, window.location.pathname);
       log('Spotify connesso ✓', 'ok');
       initSpotify();
-    } else {
-      log('Errore: ' + (data.error_description || data.error), 'err');
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
+    } else { log('Errore: ' + (data.error_description || data.error), 'err'); window.history.replaceState({}, document.title, window.location.pathname); }
   } catch(e) { log('Errore rete: ' + e.message, 'err'); }
 }
-
 async function refreshSpotifyToken() {
   const clientId = localStorage.getItem('gg_client_id');
   const refreshToken = localStorage.getItem('gg_refresh_token');
   if (!clientId || !refreshToken) return false;
   try {
     const res = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams({ grant_type: 'refresh_token', refresh_token: refreshToken, client_id: clientId }).toString()
     });
     const data = await res.json();
@@ -1463,8 +1426,7 @@ async function refreshSpotifyToken() {
       localStorage.setItem('gg_token', data.access_token);
       if (data.refresh_token) localStorage.setItem('gg_refresh_token', data.refresh_token);
       if (data.expires_in) localStorage.setItem('gg_token_expiry', Date.now() + data.expires_in * 1000);
-      log('Token rinnovato ✓', 'ok');
-      return true;
+      log('Token rinnovato ✓', 'ok'); return true;
     }
   } catch(e) {}
   return false;
@@ -1491,12 +1453,8 @@ async function spotifyFetch(url, method = 'GET', body = null) {
     if (body) opts.body = JSON.stringify(body);
     const res = await fetch(url, opts);
     if (res.status === 401) {
-      const refreshed = await refreshSpotifyToken();
-      if (refreshed) {
-        opts.headers['Authorization'] = 'Bearer ' + spotifyToken;
-        const res2 = await fetch(url, opts);
-        if ([200,202,204].includes(res2.status)) { try { return await res2.json(); } catch { return {}; } }
-      }
+      const ok = await refreshSpotifyToken();
+      if (ok) { opts.headers['Authorization'] = 'Bearer ' + spotifyToken; const r2 = await fetch(url, opts); if ([200,202,204].includes(r2.status)) { try { return await r2.json(); } catch { return {}; } } }
       log('Sessione scaduta — riconnettiti', 'err'); disconnectSpotify(); return null;
     }
     if ([200,202,204].includes(res.status)) { try { return await res.json(); } catch { return {}; } }
@@ -1529,9 +1487,8 @@ async function loadPlaylists() {
     container.appendChild(div);
   });
   log(`Caricate ${data.items.length} playlist`, 'ok');
-  // Apri automaticamente il pannello playlist
   document.getElementById('playlist-panel').style.display = 'block';
-  document.getElementById('playlist-toggle-btn').textContent = '▲ NASCONDI PLAYLIST';
+  document.getElementById('playlist-toggle-btn').textContent = '▲ NASCONDI';
 }
 
 async function getActiveDevice() {
@@ -1581,17 +1538,18 @@ async function spotifyNext() {
   await spotifyFetch('https://api.spotify.com/v1/me/player/next', 'POST');
   log('⏭ Brano successivo', 'info');
 }
-
+async function spotifyPrev() {
+  await spotifyFetch('https://api.spotify.com/v1/me/player/previous', 'POST');
+  log('⏮ Brano precedente', 'info');
+}
+async function setSpotifyVolume(val) {
+  await spotifyFetch(`https://api.spotify.com/v1/me/player/volume?volume_percent=${val}`, 'PUT');
+}
 function togglePlaylistPanel() {
-  const panel = document.getElementById('playlist-panel');
+  const p = document.getElementById('playlist-panel');
   const btn = document.getElementById('playlist-toggle-btn');
-  if (panel.style.display === 'none') {
-    panel.style.display = 'block';
-    btn.textContent = '▲ NASCONDI PLAYLIST';
-  } else {
-    panel.style.display = 'none';
-    btn.textContent = '▼ SCEGLI PLAYLIST';
-  }
+  if (p.style.display === 'none') { p.style.display = 'block'; btn.textContent = '▲ NASCONDI'; }
+  else { p.style.display = 'none'; btn.textContent = '▼ SCEGLI'; }
 }
 
 function disconnectSpotify() {
@@ -1621,27 +1579,23 @@ async function pollNowPlaying() {
   const track = data.item;
   const pct = Math.round((data.progress_ms / track.duration_ms) * 100);
   const artists = track.artists.map(a => a.name).join(', ');
-
-  // Header barra in alto
+  const prog = Math.round(data.progress_ms / 1000);
+  const dur = Math.round(track.duration_ms / 1000);
+  const fmt = s => `${Math.floor(s/60)}:${String(s%60).padStart(2,'0')}`;
+  // Header
   document.getElementById('np-header').style.display = 'flex';
   document.getElementById('np-name').textContent = track.name;
   document.getElementById('np-artist').textContent = artists;
   document.getElementById('np-progress').style.width = pct + '%';
   data.is_playing ? document.getElementById('bars').classList.remove('paused') : document.getElementById('bars').classList.add('paused');
-
-  // Barra now playing nel pannello Spotify
-  const npBar = document.getElementById('spotify-now-playing-bar');
-  if (npBar) {
-    npBar.style.display = 'flex';
-    document.getElementById('sp-track-name').textContent = track.name;
-    document.getElementById('sp-track-artist').textContent = artists;
-    document.getElementById('sp-track-progress').style.width = pct + '%';
-    const img = track.album && track.album.images && track.album.images[0] ? track.album.images[0].url : '';
-    if (img) document.getElementById('sp-track-img').src = img;
-    const dur = Math.round(track.duration_ms / 1000);
-    const prog = Math.round(data.progress_ms / 1000);
-    document.getElementById('sp-track-time').textContent = `${Math.floor(prog/60)}:${String(prog%60).padStart(2,'0')} / ${Math.floor(dur/60)}:${String(dur%60).padStart(2,'0')}`;
-  }
+  // Player panel
+  document.getElementById('sp-track-name').textContent = track.name;
+  document.getElementById('sp-track-artist').textContent = artists;
+  document.getElementById('sp-progress').style.width = pct + '%';
+  document.getElementById('sp-time-curr').textContent = fmt(prog);
+  document.getElementById('sp-time-tot').textContent = fmt(dur);
+  const img = track.album?.images?.[0]?.url || '';
+  if (img) document.getElementById('sp-cover').src = img;
 }
 
 // ── CARTELLA PC ───────────────────────────────────────────────────────────────
@@ -1756,60 +1710,7 @@ function folderPrev() {
   if (folderPlaying) document.getElementById('folder-audio-player').play().catch(() => {});
 }
 
-// ── YOUTUBE (iframe inline) ───────────────────────────────────────────────────
-let ytCurrentUrl = '';
-let ytLoaded = false;
 
-function ytBuildEmbedUrl(url) {
-  // Clean tracking params
-  url = url.replace(/[?&]si=[^&]*/g, '').replace(/[?&]start_radio=[^&]*/g, '').replace(/\?$|&$/g, '');
-  const plRaw = url.match(/[?&]list=([^&]+)/);
-  const vMatch = url.match(/(?:v=|youtu\.be\/)([^?&/]+)/);
-  const isRadio = plRaw && /^RD/.test(plRaw[1]);
-  const plMatch = !isRadio ? plRaw : null;
-  if (plMatch) return `https://www.youtube.com/embed/videoseries?list=${plMatch[1]}&autoplay=1&rel=0`;
-  if (vMatch)  return `https://www.youtube.com/embed/${vMatch[1]}?autoplay=1&rel=0`;
-  return null;
-}
-
-function ytOpen() {
-  const url = document.getElementById('yt-url').value.trim();
-  if (!url) { log('Inserisci un URL YouTube!', 'warn'); return; }
-  ytCurrentUrl = url;
-  ytLaunch();
-}
-
-function ytLaunch() {
-  if (!ytCurrentUrl) return;
-  const embedUrl = ytBuildEmbedUrl(ytCurrentUrl);
-  if (!embedUrl) { log('URL YouTube non valido', 'err'); return; }
-  const iframe = document.getElementById('yt-iframe');
-  iframe.src = embedUrl;
-  document.getElementById('yt-player-wrap').style.display = 'block';
-  document.getElementById('yt-controls').style.display = 'flex';
-  ytLoaded = true;
-  document.getElementById('np-header').style.display = 'flex';
-  document.getElementById('np-name').textContent = 'YouTube';
-  document.getElementById('np-artist').textContent = ytCurrentUrl.length > 55 ? ytCurrentUrl.substring(0, 55) + '…' : ytCurrentUrl;
-  document.getElementById('bars').classList.remove('paused');
-  setPill('start-pill', 'playing', '▶ PLAY');
-  log('▶ YouTube avviato', 'ok');
-}
-
-function ytClose() {
-  const iframe = document.getElementById('yt-iframe');
-  iframe.src = '';
-  ytLoaded = false;
-  document.getElementById('yt-player-wrap').style.display = 'none';
-  document.getElementById('yt-controls').style.display = 'none';
-  document.getElementById('np-header').style.display = 'none';
-  document.getElementById('bars').classList.add('paused');
-  setPill('start-pill', 'off', 'OFF');
-  log('⏹ YouTube fermato', 'warn');
-}
-
-function ytPlay()  { ytLaunch(); }
-function ytPause() { ytClose(); }
 
 // ── WAKE LOCK (impedisce sleep del PC/schermo) ────────────────────────────────
 let wakeLock = null;
@@ -2234,9 +2135,7 @@ window.addEventListener('load', () => {
     const saved = localStorage.getItem('gg_token');
     const expiry = localStorage.getItem('gg_token_expiry');
     if (saved && expiry && Date.now() < parseInt(expiry)) {
-      spotifyToken = saved;
-      log('Token ripristinato ✓', 'info');
-      initSpotify();
+      spotifyToken = saved; log('Token ripristinato ✓', 'info'); initSpotify();
     } else if (localStorage.getItem('gg_refresh_token')) {
       refreshSpotifyToken().then(ok => { if (ok) initSpotify(); });
     }
