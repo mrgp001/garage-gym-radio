@@ -1147,6 +1147,9 @@
     </div>
   </div>
 
+  <!-- LOG (hidden) -->
+  <div id="log" style="display:none;"></div>
+
 
 
 </main>
@@ -2246,7 +2249,7 @@ function renderAnnouncements() {
         <div class="ann-meta">${a.repeat ? '🔁 Giornaliero' : '1× Una volta'} · ${typeLabel}${a.done ? ' · ✓ Eseguito' : ''}</div>
       </div>
       <div style="display:flex;gap:0.4rem;flex-shrink:0;">
-        <button class="btn btn-ghost btn-sm" onclick="testAnn(${a.id})">${(annPreviewId === a.id && annPreviewAudio && !annPreviewAudio.paused) ? '⏹' : '🔊'}</button>
+        <button class="btn btn-ghost btn-sm" id="test-btn-${a.id}" onclick="toggleTestAnn(${a.id}, this)">🔊</button>
         <button class="btn btn-danger btn-sm" onclick="removeAnn(${a.id})">✕</button>
       </div>
     </div>
@@ -2294,36 +2297,52 @@ function doSpeak(text, voiceIdx, rate = 0.9, onEnd = null) {
   speechSynthesis.speak(utt);
 }
 
-// Global preview player for ann-list
-let annPreviewAudio = null;
-let annPreviewId = null;
+let currentTestAudio = null;
+let currentTestId = null;
 
-function testAnn(id) {
-  const ann = announcements.find(a => a.id === id);
-  if (!ann) return;
-
-  // If same item is playing → stop it
-  if (annPreviewAudio && annPreviewId === id && !annPreviewAudio.paused) {
-    annPreviewAudio.pause();
-    annPreviewAudio.currentTime = 0;
-    annPreviewAudio = null;
-    annPreviewId = null;
-    renderAnnouncements();
+function toggleTestAnn(id, btn) {
+  // If same announcement is playing, stop it
+  if (currentTestId === id && currentTestAudio) {
+    currentTestAudio.pause();
+    currentTestAudio.currentTime = 0;
+    currentTestAudio = null;
+    currentTestId = null;
+    btn.textContent = '🔊';
+    btn.style.borderColor = '';
     return;
   }
-
-  // Stop any currently playing preview
-  if (annPreviewAudio) { annPreviewAudio.pause(); annPreviewAudio.currentTime = 0; }
-
+  // Stop any currently playing
+  if (currentTestAudio) {
+    currentTestAudio.pause();
+    currentTestAudio.currentTime = 0;
+    const prevBtn = document.getElementById('test-btn-' + currentTestId);
+    if (prevBtn) { prevBtn.textContent = '🔊'; prevBtn.style.borderColor = ''; }
+    currentTestAudio = null;
+    currentTestId = null;
+  }
+  const ann = announcements.find(a => a.id === id);
+  if (!ann) return;
   if (ann.type === 'file' && ann.audioData) {
-    annPreviewAudio = new Audio(ann.audioData);
-    annPreviewId = id;
-    annPreviewAudio.play();
-    annPreviewAudio.onended = () => { annPreviewAudio = null; annPreviewId = null; renderAnnouncements(); };
+    const audio = new Audio(ann.audioData);
+    currentTestAudio = audio;
+    currentTestId = id;
+    btn.textContent = '⏹';
+    btn.style.borderColor = 'var(--danger)';
+    audio.play();
+    audio.onended = () => {
+      currentTestAudio = null;
+      currentTestId = null;
+      btn.textContent = '🔊';
+      btn.style.borderColor = '';
+    };
     log(`Test audio: ${ann.fileName}`, 'info');
-    renderAnnouncements(); // update button icon
+  } else if (ann.type === 'tts') {
+    doSpeak(ann.text, ann.voiceIdx, ann.rate);
+    log(`Test TTS: ${ann.time}`, 'info');
   }
 }
+
+function testAnn(id) { toggleTestAnn(id, document.getElementById('test-btn-' + id)); }
 
 function previewAnn() { preparePreview(); }
 
