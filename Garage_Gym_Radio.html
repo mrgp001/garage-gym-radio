@@ -917,24 +917,48 @@
       </div>
 
       <div id="spotify-connected-area" style="display:none;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem;">
+
+        <!-- Barra utente + controlli -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:0.75rem;">
           <span class="pill pill-playing" id="spotify-user-pill"><span class="pill-dot"></span>—</span>
-          <button class="btn btn-ghost btn-sm" onclick="disconnectSpotify()">Disconnetti</button>
-        </div>
-        <div id="playlist-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.5rem;max-height:280px;overflow-y:auto;margin-bottom:1rem;">
-          <div class="empty-state">Caricamento playlist...</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-          <div>
-            <label style="margin-bottom:0.2rem;">Playlist attiva</label>
-            <div id="selected-playlist-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:var(--green);">Nessuna</div>
-          </div>
-          <div class="btn-row" style="margin-top:0;margin-left:auto;">
+          <div style="display:flex;gap:0.5rem;align-items:center;">
             <button class="btn btn-green btn-sm" onclick="sourcePlay()">▶ PLAY</button>
             <button class="btn btn-ghost btn-sm" onclick="sourcePause()">⏸ PAUSE</button>
             <button class="btn btn-ghost btn-sm" onclick="spotifyNext()">⏭ NEXT</button>
+            <button class="btn btn-ghost btn-sm" onclick="disconnectSpotify()">✕ DISCONNETTI</button>
           </div>
         </div>
+
+        <!-- Brano in riproduzione -->
+        <div id="spotify-now-playing-bar" style="display:none;background:var(--steel);border:1px solid var(--green);border-left:4px solid var(--green);padding:0.75rem 1rem;border-radius:1px;margin-bottom:1.2rem;display:flex;align-items:center;gap:1rem;">
+          <img id="sp-track-img" src="" style="width:48px;height:48px;border-radius:2px;object-fit:cover;background:var(--plate);" alt="">
+          <div style="flex:1;min-width:0;">
+            <div id="sp-track-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;color:var(--green);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">—</div>
+            <div id="sp-track-artist" style="font-size:0.78rem;color:var(--muted);">—</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:0.3rem;min-width:80px;">
+            <div id="sp-track-time" style="font-family:'Barlow Condensed',sans-serif;font-size:0.8rem;color:var(--muted);">0:00 / 0:00</div>
+            <div style="width:80px;height:3px;background:var(--plate);border-radius:2px;overflow:hidden;">
+              <div id="sp-track-progress" style="height:100%;background:var(--green);width:0%;transition:width 1s linear;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Playlist attiva -->
+        <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.75rem;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">Playlist attiva:</div>
+          <div id="selected-playlist-name" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;color:var(--green);">Nessuna selezionata</div>
+          <button class="btn btn-ghost btn-sm" onclick="togglePlaylistPanel()" id="playlist-toggle-btn" style="margin-left:auto;">▼ SCEGLI PLAYLIST</button>
+        </div>
+
+        <!-- Griglia playlist (collassabile) -->
+        <div id="playlist-panel" style="display:none;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:3px;color:var(--muted);margin-bottom:0.75rem;text-transform:uppercase;">Le tue playlist</div>
+          <div id="playlist-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0.5rem;max-height:320px;overflow-y:auto;">
+            <div class="empty-state">Caricamento...</div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -1505,6 +1529,9 @@ async function loadPlaylists() {
     container.appendChild(div);
   });
   log(`Caricate ${data.items.length} playlist`, 'ok');
+  // Apri automaticamente il pannello playlist
+  document.getElementById('playlist-panel').style.display = 'block';
+  document.getElementById('playlist-toggle-btn').textContent = '▲ NASCONDI PLAYLIST';
 }
 
 async function getActiveDevice() {
@@ -1555,6 +1582,18 @@ async function spotifyNext() {
   log('⏭ Brano successivo', 'info');
 }
 
+function togglePlaylistPanel() {
+  const panel = document.getElementById('playlist-panel');
+  const btn = document.getElementById('playlist-toggle-btn');
+  if (panel.style.display === 'none') {
+    panel.style.display = 'block';
+    btn.textContent = '▲ NASCONDI PLAYLIST';
+  } else {
+    panel.style.display = 'none';
+    btn.textContent = '▼ SCEGLI PLAYLIST';
+  }
+}
+
 function disconnectSpotify() {
   spotifyToken = null;
   localStorage.removeItem('gg_token');
@@ -1581,12 +1620,28 @@ async function pollNowPlaying() {
   if (!data || !data.item) { document.getElementById('np-header').style.display = 'none'; return; }
   const track = data.item;
   const pct = Math.round((data.progress_ms / track.duration_ms) * 100);
+  const artists = track.artists.map(a => a.name).join(', ');
+
+  // Header barra in alto
   document.getElementById('np-header').style.display = 'flex';
   document.getElementById('np-name').textContent = track.name;
-  document.getElementById('np-artist').textContent = track.artists.map(a => a.name).join(', ');
+  document.getElementById('np-artist').textContent = artists;
   document.getElementById('np-progress').style.width = pct + '%';
-  const bars = document.getElementById('bars');
-  data.is_playing ? bars.classList.remove('paused') : bars.classList.add('paused');
+  data.is_playing ? document.getElementById('bars').classList.remove('paused') : document.getElementById('bars').classList.add('paused');
+
+  // Barra now playing nel pannello Spotify
+  const npBar = document.getElementById('spotify-now-playing-bar');
+  if (npBar) {
+    npBar.style.display = 'flex';
+    document.getElementById('sp-track-name').textContent = track.name;
+    document.getElementById('sp-track-artist').textContent = artists;
+    document.getElementById('sp-track-progress').style.width = pct + '%';
+    const img = track.album && track.album.images && track.album.images[0] ? track.album.images[0].url : '';
+    if (img) document.getElementById('sp-track-img').src = img;
+    const dur = Math.round(track.duration_ms / 1000);
+    const prog = Math.round(data.progress_ms / 1000);
+    document.getElementById('sp-track-time').textContent = `${Math.floor(prog/60)}:${String(prog%60).padStart(2,'0')} / ${Math.floor(dur/60)}:${String(dur%60).padStart(2,'0')}`;
+  }
 }
 
 // ── CARTELLA PC ───────────────────────────────────────────────────────────────
