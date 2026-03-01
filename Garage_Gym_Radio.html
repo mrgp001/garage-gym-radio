@@ -2178,12 +2178,25 @@ function addAnnFile() {
   const dayVal = document.getElementById('ann-day').value;
   const repeat = (dayVal === 'every');
   const customName = document.getElementById('ann-custom-name').value.trim();
-  const displayName = customName || annAudioFileName;
   if (!time) { log('Seleziona un orario!', 'warn'); return; }
   if (!annAudioFileData) { log('Carica un file audio prima!', 'warn'); return; }
-  announcements.push({ id: Date.now(), time, fileName: displayName, audioData: annAudioFileData, repeat, type: 'file', done: false });
-  log(`Annuncio "${displayName}" aggiunto alle ${time}${repeat ? ' · ogni giorno' : ''}`, 'ok');
+  if (!customName) { 
+    log('Inserisci un nome per l\'annuncio!', 'warn');
+    document.getElementById('ann-custom-name').focus();
+    document.getElementById('ann-custom-name').style.borderColor = 'var(--danger)';
+    setTimeout(() => { document.getElementById('ann-custom-name').style.borderColor = ''; }, 2000);
+    return; 
+  }
+  // Stop any playing preview
+  const preview = document.getElementById('ann-audio-preview');
+  if (preview) { preview.pause(); preview.currentTime = 0; }
+  announcements.push({ id: Date.now(), time, fileName: customName, audioData: annAudioFileData, repeat, type: 'file', done: false });
+  log(`Annuncio "${customName}" aggiunto alle ${time}${repeat ? ' · ogni giorno' : ''}`, 'ok');
+  // Clear the whole form
+  clearAnnFile();
   document.getElementById('ann-custom-name').value = '';
+  document.getElementById('ann-time').value = '12:00';
+  document.getElementById('ann-day').value = 'every';
   announcements.sort((a, b) => a.time.localeCompare(b.time));
   renderAnnouncements();
   ensureTicker();
